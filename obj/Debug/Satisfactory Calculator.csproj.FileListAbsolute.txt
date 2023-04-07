@@ -1,0 +1,47 @@
+E:\Satisfactory Calculator\Project\Satisfactory Calculator\obj\Debug\Satisfactory Calculator.csproj.AssemblyReference.cache
+E:\Satisfactory Calculator\Project\Satisfactory Calculator\obj\Debug\Satisfactory Calculator.csproj.SuggestedBindingRedirects.cache
+E:\Satisfactory Calculator\Project\Satisfactory Calculator\obj\Debug\MainWindow.g.cs
+E:\Satisfactory Calculator\Project\Satisfactory Calculator\obj\Debug\App.g.cs
+E:\Satisfactory Calculator\Project\Satisfactory Calculator\obj\Debug\Satisfactory Calculator_MarkupCompile.cache
+E:\Satisfactory Calculator\Project\Satisfactory Calculator\obj\Debug\Satisfactory Calculator_MarkupCompile.lref
+E:\Satisfactory Calculator\Project\Satisfactory Calculator\bin\Debug\Satisfactory Calculator.exe.config
+E:\Satisfactory Calculator\Project\Satisfactory Calculator\bin\Debug\Satisfactory Calculator.exe
+E:\Satisfactory Calculator\Project\Satisfactory Calculator\bin\Debug\Satisfactory Calculator.pdb
+E:\Satisfactory Calculator\Project\Satisfactory Calculator\obj\Debug\MainWindow.baml
+E:\Satisfactory Calculator\Project\Satisfactory Calculator\obj\Debug\Satisfactory Calculator.g.resources
+E:\Satisfactory Calculator\Project\Satisfactory Calculator\obj\Debug\Satisfactory_Calculator.Properties.Resources.resources
+E:\Satisfactory Calculator\Project\Satisfactory Calculator\obj\Debug\Satisfactory Calculator.csproj.GenerateResource.cache
+E:\Satisfactory Calculator\Project\Satisfactory Calculator\obj\Debug\Satisfactory Calculator.csproj.CoreCompileInputs.cache
+E:\Satisfactory Calculator\Project\Satisfactory Calculator\obj\Debug\Satisfactory Calculator.exe
+E:\Satisfactory Calculator\Project\Satisfactory Calculator\obj\Debug\Satisfactory Calculator.pdb
+E:\Satisfactory Calculator\Project\Satisfactory Calculator\obj\Debug\Frames\Generators.g.cs
+E:\Satisfactory Calculator\Project\Satisfactory Calculator\obj\Debug\Frames\Production_Buildings.g.cs
+E:\Satisfactory Calculator\Project\Satisfactory Calculator\obj\Debug\Frames\Vehicles.g.cs
+E:\Satisfactory Calculator\Project\Satisfactory Calculator\obj\Debug\Frames\Generators.baml
+E:\Satisfactory Calculator\Project\Satisfactory Calculator\obj\Debug\Frames\Production_Buildings.baml
+E:\Satisfactory Calculator\Project\Satisfactory Calculator\obj\Debug\Frames\Vehicles.baml
+E:\Satisfactory Calculator\Project\Satisfactory Calculator\obj\Debug\Frames\Extraction_Buildings.g.cs
+E:\Satisfactory Calculator\Project\Satisfactory Calculator\obj\Debug\Frames\Extraction_Buildings.baml
+E:\Satisfactory Calculator\Project\Satisfactory Calculator\obj\Debug\Frames\Other_Buildings.g.cs
+E:\Satisfactory Calculator\Project\Satisfactory Calculator\bin\Debug\Microsoft.Bcl.AsyncInterfaces.dll
+E:\Satisfactory Calculator\Project\Satisfactory Calculator\bin\Debug\System.Buffers.dll
+E:\Satisfactory Calculator\Project\Satisfactory Calculator\bin\Debug\System.Memory.dll
+E:\Satisfactory Calculator\Project\Satisfactory Calculator\bin\Debug\System.Numerics.Vectors.dll
+E:\Satisfactory Calculator\Project\Satisfactory Calculator\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
+E:\Satisfactory Calculator\Project\Satisfactory Calculator\bin\Debug\System.Text.Encodings.Web.dll
+E:\Satisfactory Calculator\Project\Satisfactory Calculator\bin\Debug\System.Text.Json.dll
+E:\Satisfactory Calculator\Project\Satisfactory Calculator\bin\Debug\System.Threading.Tasks.Extensions.dll
+E:\Satisfactory Calculator\Project\Satisfactory Calculator\bin\Debug\System.ValueTuple.dll
+E:\Satisfactory Calculator\Project\Satisfactory Calculator\bin\Debug\Microsoft.Bcl.AsyncInterfaces.xml
+E:\Satisfactory Calculator\Project\Satisfactory Calculator\bin\Debug\System.Buffers.xml
+E:\Satisfactory Calculator\Project\Satisfactory Calculator\bin\Debug\System.Memory.xml
+E:\Satisfactory Calculator\Project\Satisfactory Calculator\bin\Debug\System.Numerics.Vectors.xml
+E:\Satisfactory Calculator\Project\Satisfactory Calculator\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
+E:\Satisfactory Calculator\Project\Satisfactory Calculator\bin\Debug\System.Text.Encodings.Web.xml
+E:\Satisfactory Calculator\Project\Satisfactory Calculator\bin\Debug\System.Text.Json.xml
+E:\Satisfactory Calculator\Project\Satisfactory Calculator\bin\Debug\System.Threading.Tasks.Extensions.xml
+E:\Satisfactory Calculator\Project\Satisfactory Calculator\bin\Debug\System.ValueTuple.xml
+E:\Satisfactory Calculator\Project\Satisfactory Calculator\obj\Debug\Frames\Other_Buildings.baml
+E:\Satisfactory Calculator\Project\Satisfactory Calculator\obj\Debug\Satisfactory Calculator.csproj.CopyComplete
+E:\Satisfactory Calculator\Project\Satisfactory Calculator\bin\Debug\Newtonsoft.Json.dll
+E:\Satisfactory Calculator\Project\Satisfactory Calculator\bin\Debug\Newtonsoft.Json.xml

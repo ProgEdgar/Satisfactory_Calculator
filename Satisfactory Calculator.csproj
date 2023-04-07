@@ -1,0 +1,427 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{4C1939AE-1D74-4AA8-A00F-69C881B14120}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>Satisfactory_Calculator</RootNamespace>
+    <AssemblyName>Satisfactory Calculator</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=7.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.Bcl.AsyncInterfaces.7.0.0\lib\net462\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Memory, Version=4.0.1.2, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.Memory.4.5.5\lib\net461\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>packages\System.Runtime.CompilerServices.Unsafe.6.0.0\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Text.Encodings.Web, Version=7.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.Text.Encodings.Web.7.0.0\lib\net462\System.Text.Encodings.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Text.Json, Version=7.0.0.2, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.Text.Json.7.0.2\lib\net462\System.Text.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.Threading.Tasks.Extensions.4.5.4\lib\net461\System.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.ValueTuple.4.5.0\lib\net47\System.ValueTuple.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="Class_Files\Info.cs" />
+    <Compile Include="Frames\Vehicles.xaml.cs">
+      <DependentUpon>Vehicles.xaml</DependentUpon>
+    </Compile>
+    <Page Include="Frames\Extraction_Buildings.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Frames\Generators.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Class_Files\Building.cs" />
+    <Compile Include="Class_Files\Fuel.cs" />
+    <Compile Include="Class_Files\Generator.cs" />
+    <Compile Include="Class_Files\Production_Item.cs" />
+    <Compile Include="Class_Files\Raw_Item.cs" />
+    <Compile Include="Class_Files\Resource_Map.cs" />
+    <Compile Include="Class_Files\Vehicle.cs" />
+    <Compile Include="Frames\Extraction_Buildings.xaml.cs">
+      <DependentUpon>Extraction_Buildings.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Frames\Generators.xaml.cs">
+      <DependentUpon>Generators.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Page Include="Frames\Vehicles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Frames\Other_Buildings.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Frames\Production_Buildings.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Frames\Other_Buildings.xaml.cs">
+      <DependentUpon>Other_Buildings.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Frames\Production_Buildings.xaml.cs">
+      <DependentUpon>Production_Buildings.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Img\Img_Building\Assembler.png" />
+    <Resource Include="Img\Img_Building\AWESOME Shop.png" />
+    <Resource Include="Img\Img_Building\AWESOME Sink.png" />
+    <Resource Include="Img\Img_Building\Biomass Burner.png" />
+    <Resource Include="Img\Img_Building\Blender.png" />
+    <Resource Include="Img\Img_Building\Blueprint Designer.png" />
+    <Resource Include="Img\Img_Building\Coal Generator.png" />
+    <Resource Include="Img\Img_Building\Constructor.png" />
+    <Resource Include="Img\Img_Building\Craft Bench.png" />
+    <Resource Include="Img\Img_Building\Drone Port.png" />
+    <Resource Include="Img\Img_Building\Equipment Workshop.png" />
+    <Resource Include="Img\Img_Building\Fluid Buffer.png" />
+    <Resource Include="Img\Img_Building\Fluid Freight Platform.png" />
+    <Resource Include="Img\Img_Building\Foundry.png" />
+    <Resource Include="Img\Img_Building\Freight Platform.png" />
+    <Resource Include="Img\Img_Building\Fuel Generator.png" />
+    <Resource Include="Img\Img_Building\Geothermal Generator.png" />
+    <Resource Include="Img\Img_Building\Hazard Storage Box.png" />
+    <Resource Include="Img\Img_Building\Hub.png" />
+    <Resource Include="Img\Img_Building\Industrial Fluid Buffer.png" />
+    <Resource Include="Img\Img_Building\Industrial Storage Container.png" />
+    <Resource Include="Img\Img_Building\Lookout Tower.png" />
+    <Resource Include="Img\Img_Building\MAM.png" />
+    <Resource Include="Img\Img_Building\Manufacturer.png" />
+    <Resource Include="Img\Img_Building\Medical Storage Box.png" />
+    <Resource Include="Img\Img_Building\Miner Mk_1.png" />
+    <Resource Include="Img\Img_Building\Miner Mk_2.png" />
+    <Resource Include="Img\Img_Building\Miner Mk_3.png" />
+    <Resource Include="Img\Img_Building\Nuclear Power Plant.png" />
+    <Resource Include="Img\Img_Building\Oil Extractor.png" />
+    <Resource Include="Img\Img_Building\Packager.png" />
+    <Resource Include="Img\Img_Building\Particle Accelerator.png" />
+    <Resource Include="Img\Img_Building\Personal Storage Box.png" />
+    <Resource Include="Img\Img_Building\Power Storage.png" />
+    <Resource Include="Img\Img_Building\Radar Tower.png" />
+    <Resource Include="Img\Img_Building\Refinery.png" />
+    <Resource Include="Img\Img_Building\Resource Well Extractor.png" />
+    <Resource Include="Img\Img_Building\Resource Well Pressurizer.png" />
+    <Resource Include="Img\Img_Building\Smelter.png" />
+    <Resource Include="Img\Img_Building\Space Elevator.png" />
+    <Resource Include="Img\Img_Building\Storage Container.png" />
+    <Resource Include="Img\Img_Building\Truck Station.png" />
+    <Resource Include="Img\Img_Building\Water Extractor.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Img\Img_Vehicle\Cyber Wagon.png" />
+    <Resource Include="Img\Img_Vehicle\Drone.png" />
+    <Resource Include="Img\Img_Vehicle\Electric Locomotive.png" />
+    <Resource Include="Img\Img_Vehicle\Explorer.png" />
+    <Resource Include="Img\Img_Vehicle\Freight Car.png" />
+    <Resource Include="Img\Img_Vehicle\Tractor.png" />
+    <Resource Include="Img\Img_Vehicle\Truck.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Img\Img_Item\Adaptive Control Unit.png" />
+    <Resource Include="Img\Img_Item\AI Limiter.png" />
+    <Resource Include="Img\Img_Item\Alclad Aluminum Sheet.png" />
+    <Resource Include="Img\Img_Item\Alien DNA Capsule.png" />
+    <Resource Include="Img\Img_Item\Alien Protein.png" />
+    <Resource Include="Img\Img_Item\Alumina Solution.png" />
+    <Resource Include="Img\Img_Item\Aluminum Casing.png" />
+    <Resource Include="Img\Img_Item\Aluminum Ingot.png" />
+    <Resource Include="Img\Img_Item\Aluminum Scrap.png" />
+    <Resource Include="Img\Img_Item\Assembly Director System.png" />
+    <Resource Include="Img\Img_Item\Automated Wiring.png" />
+    <Resource Include="Img\Img_Item\Battery.png" />
+    <Resource Include="Img\Img_Item\Bauxite.png" />
+    <Resource Include="Img\Img_Item\Beacon.png" />
+    <Resource Include="Img\Img_Item\Biomass.png" />
+    <Resource Include="Img\Img_Item\Black Powder.png" />
+    <Resource Include="Img\Img_Item\Blue Power Slug.png" />
+    <Resource Include="Img\Img_Item\Cable.png" />
+    <Resource Include="Img\Img_Item\Caterium Ingot.png" />
+    <Resource Include="Img\Img_Item\Caterium Ore.png" />
+    <Resource Include="Img\Img_Item\Circuit Board.png" />
+    <Resource Include="Img\Img_Item\Cluster Nobelisk.png" />
+    <Resource Include="Img\Img_Item\Coal.png" />
+    <Resource Include="Img\Img_Item\Color Cartridge.png" />
+    <Resource Include="Img\Img_Item\Compacted Coal.png" />
+    <Resource Include="Img\Img_Item\Computer.png" />
+    <Resource Include="Img\Img_Item\Concrete.png" />
+    <Resource Include="Img\Img_Item\Cooling System.png" />
+    <Resource Include="Img\Img_Item\Copper Ingot.png" />
+    <Resource Include="Img\Img_Item\Copper Ore.png" />
+    <Resource Include="Img\Img_Item\Copper Powder.png" />
+    <Resource Include="Img\Img_Item\Copper Sheet.png" />
+    <Resource Include="Img\Img_Item\Crude Oil.png" />
+    <Resource Include="Img\Img_Item\Crystal Oscillator.png" />
+    <Resource Include="Img\Img_Item\Electromagnetic Control Rod.png" />
+    <Resource Include="Img\Img_Item\Empty Canister.png" />
+    <Resource Include="Img\Img_Item\Empty Fluid Tank.png" />
+    <Resource Include="Img\Img_Item\Encased Industrial Beam.png" />
+    <Resource Include="Img\Img_Item\Encased Plutonium Cell.png" />
+    <Resource Include="Img\Img_Item\Encased Uranium Cell.png" />
+    <Resource Include="Img\Img_Item\Explosive Rebar.png" />
+    <Resource Include="Img\Img_Item\Fabric.png" />
+    <Resource Include="Img\Img_Item\FICSIT Coupon.png" />
+    <Resource Include="Img\Img_Item\Flower Petals.png" />
+    <Resource Include="Img\Img_Item\Fuel.png" />
+    <Resource Include="Img\Img_Item\Fused Modular Frame.png" />
+    <Resource Include="Img\Img_Item\Gas Filter.png" />
+    <Resource Include="Img\Img_Item\Gas Nobelisk.png" />
+    <Resource Include="Img\Img_Item\Heat Sink.png" />
+    <Resource Include="Img\Img_Item\Heavy Modular Frame.png" />
+    <Resource Include="Img\Img_Item\Heavy Oil Residue.png" />
+    <Resource Include="Img\Img_Item\High-Speed Connector.png" />
+    <Resource Include="Img\Img_Item\Homing Rifle Ammo.png" />
+    <Resource Include="Img\Img_Item\Iodine Infused Filter.png" />
+    <Resource Include="Img\Img_Item\Iron Ingot.png" />
+    <Resource Include="Img\Img_Item\Iron Ore.png" />
+    <Resource Include="Img\Img_Item\Iron Plate.png" />
+    <Resource Include="Img\Img_Item\Iron Rebar.png" />
+    <Resource Include="Img\Img_Item\Iron Rod.png" />
+    <Resource Include="Img\Img_Item\Leaves.png" />
+    <Resource Include="Img\Img_Item\Limestone.png" />
+    <Resource Include="Img\Img_Item\Liquid Biofuel.png" />
+    <Resource Include="Img\Img_Item\Magnetic Field Generator.png" />
+    <Resource Include="Img\Img_Item\Modular Engine.png" />
+    <Resource Include="Img\Img_Item\Modular Frame.png" />
+    <Resource Include="Img\Img_Item\Motor.png" />
+    <Resource Include="Img\Img_Item\Mycelia.png" />
+    <Resource Include="Img\Img_Item\Nitric Acid.png" />
+    <Resource Include="Img\Img_Item\Nitrogen Gas.png" />
+    <Resource Include="Img\Img_Item\Nobelisk.png" />
+    <Resource Include="Img\Img_Item\Non-fissile Uranium.png" />
+    <Resource Include="Img\Img_Item\Nuclear Pasta.png" />
+    <Resource Include="Img\Img_Item\Nuke Nobelisk.png" />
+    <Resource Include="Img\Img_Item\Packaged Alumina Solution.png" />
+    <Resource Include="Img\Img_Item\Packaged Fuel.png" />
+    <Resource Include="Img\Img_Item\Packaged Heavy Oil Residue.png" />
+    <Resource Include="Img\Img_Item\Packaged Liquid Biofuel.png" />
+    <Resource Include="Img\Img_Item\Packaged Nitric Acid.png" />
+    <Resource Include="Img\Img_Item\Packaged Nitrogen Gas.png" />
+    <Resource Include="Img\Img_Item\Packaged Oil.png" />
+    <Resource Include="Img\Img_Item\Packaged Sulfuric Acid.png" />
+    <Resource Include="Img\Img_Item\Packaged Turbofuel.png" />
+    <Resource Include="Img\Img_Item\Packaged Water.png" />
+    <Resource Include="Img\Img_Item\Petroleum Coke.png" />
+    <Resource Include="Img\Img_Item\Plastic.png" />
+    <Resource Include="Img\Img_Item\Plutonium Fuel Rod.png" />
+    <Resource Include="Img\Img_Item\Plutonium Pellet.png" />
+    <Resource Include="Img\Img_Item\Plutonium Waste.png" />
+    <Resource Include="Img\Img_Item\Polymer Resin.png" />
+    <Resource Include="Img\Img_Item\Power Shard.png" />
+    <Resource Include="Img\Img_Item\Pressure Conversion Cube.png" />
+    <Resource Include="Img\Img_Item\Pulse Nobelisk.png" />
+    <Resource Include="Img\Img_Item\Purple Power Slug.png" />
+    <Resource Include="Img\Img_Item\Quantum Computer.png" />
+    <Resource Include="Img\Img_Item\Quartz Crystal.png" />
+    <Resource Include="Img\Img_Item\Quickwire.png" />
+    <Resource Include="Img\Img_Item\Radio Control Unit.png" />
+    <Resource Include="Img\Img_Item\Raw Quartz.png" />
+    <Resource Include="Img\Img_Item\Reinforced Iron Plate.png" />
+    <Resource Include="Img\Img_Item\Rifle Ammo.png" />
+    <Resource Include="Img\Img_Item\Rotor.png" />
+    <Resource Include="Img\Img_Item\Rubber.png" />
+    <Resource Include="Img\Img_Item\Screw.png" />
+    <Resource Include="Img\Img_Item\Shatter Rebar.png" />
+    <Resource Include="Img\Img_Item\Silica.png" />
+    <Resource Include="Img\Img_Item\Smart Plating.png" />
+    <Resource Include="Img\Img_Item\Smokeless Powder.png" />
+    <Resource Include="Img\Img_Item\Solid Biofuel.png" />
+    <Resource Include="Img\Img_Item\Stator.png" />
+    <Resource Include="Img\Img_Item\Steel Beam.png" />
+    <Resource Include="Img\Img_Item\Steel Ingot.png" />
+    <Resource Include="Img\Img_Item\Steel Pipe.png" />
+    <Resource Include="Img\Img_Item\Stun Rebar.png" />
+    <Resource Include="Img\Img_Item\Sulfur.png" />
+    <Resource Include="Img\Img_Item\Sulfuric Acid.png" />
+    <Resource Include="Img\Img_Item\Supercomputer.png" />
+    <Resource Include="Img\Img_Item\Superposition Oscillator.png" />
+    <Resource Include="Img\Img_Item\S_A_M Ore.png" />
+    <Resource Include="Img\Img_Item\Thermal Propulsion Rocket.png" />
+    <Resource Include="Img\Img_Item\Turbo Motor.png" />
+    <Resource Include="Img\Img_Item\Turbo Rifle Ammo.png" />
+    <Resource Include="Img\Img_Item\Turbofuel.png" />
+    <Resource Include="Img\Img_Item\Uranium Fuel Rod.png" />
+    <Resource Include="Img\Img_Item\Uranium Waste.png" />
+    <Resource Include="Img\Img_Item\Uranium.png" />
+    <Resource Include="Img\Img_Item\Versatile Framework.png" />
+    <Resource Include="Img\Img_Item\Water.png" />
+    <Resource Include="Img\Img_Item\Wire.png" />
+    <Resource Include="Img\Img_Item\Wood.png" />
+    <Resource Include="Img\Img_Item\Yellow Power Slug.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Img\Img_Building\Train Station.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Img\Img_Item\Geysers.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Img\Img_Item\Wells.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Img\Img_Item\Actual Snow.png" />
+    <Resource Include="Img\Img_Item\Blue FICSMAS Ornament.png" />
+    <Resource Include="Img\Img_Item\Candy Cane.png" />
+    <Resource Include="Img\Img_Item\Copper FICSMAS Ornament.png" />
+    <Resource Include="Img\Img_Item\Fancy Fireworks.png" />
+    <Resource Include="Img\Img_Item\FICSMAS Bow.png" />
+    <Resource Include="Img\Img_Item\FICSMAS Decoration.png" />
+    <Resource Include="Img\Img_Item\FICSMAS Gift.png" />
+    <Resource Include="Img\Img_Item\FICSMAS Ornament Bundle.png" />
+    <Resource Include="Img\Img_Item\FICSMAS Tree Branch.png" />
+    <Resource Include="Img\Img_Item\FICSMAS Wonder Star.png" />
+    <Resource Include="Img\Img_Item\Iron FICSMAS Ornament.png" />
+    <Resource Include="Img\Img_Item\Red FICSMAS Ornament.png" />
+    <Resource Include="Img\Img_Item\Snowball.png" />
+    <Resource Include="Img\Img_Item\Sparkly Fireworks.png" />
+    <Resource Include="Img\Img_Item\Sweet Fireworks.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Img\Img_Building\FICSMAS Gift Tree.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Img\Img_Item\Bacon Agaric.png" />
+    <Resource Include="Img\Img_Item\Beryl Nut.png" />
+    <Resource Include="Img\Img_Item\Blade Runners.png" />
+    <Resource Include="Img\Img_Item\Chainsaw.png" />
+    <Resource Include="Img\Img_Item\Factory Cart.png" />
+    <Resource Include="Img\Img_Item\FICSIT Coffee Cup.png" />
+    <Resource Include="Img\Img_Item\FICSIT Gold Coffee Cup.png" />
+    <Resource Include="Img\Img_Item\Gas Mask.png" />
+    <Resource Include="Img\Img_Item\Golden Factory Cart.png" />
+    <Resource Include="Img\Img_Item\Hard Drive.png" />
+    <Resource Include="Img\Img_Item\Hatcher Remains.png" />
+    <Resource Include="Img\Img_Item\Hazmat Suit.png" />
+    <Resource Include="Img\Img_Item\Hog Remains.png" />
+    <Resource Include="Img\Img_Item\Hover Pack.png" />
+    <Resource Include="Img\Img_Item\HUB Parts.png" />
+    <Resource Include="Img\Img_Item\Jetpack.png" />
+    <Resource Include="Img\Img_Item\Medicinal Inhaler.png" />
+    <Resource Include="Img\Img_Item\Mercer Sphere.png" />
+    <Resource Include="Img\Img_Item\Nobelisk Detonator.png" />
+    <Resource Include="Img\Img_Item\Object Scanner.png" />
+    <Resource Include="Img\Img_Item\Paleberry.png" />
+    <Resource Include="Img\Img_Item\Parachute.png" />
+    <Resource Include="Img\Img_Item\Plasma Spitter Remains.png" />
+    <Resource Include="Img\Img_Item\Portable Miner.png" />
+    <Resource Include="Img\Img_Item\Rebar Gun.png" />
+    <Resource Include="Img\Img_Item\Rifle.png" />
+    <Resource Include="Img\Img_Item\Somersloop.png" />
+    <Resource Include="Img\Img_Item\Stinger Remains.png" />
+    <Resource Include="Img\Img_Item\The Boombox.png" />
+    <Resource Include="Img\Img_Item\Xeno-Basher.png" />
+    <Resource Include="Img\Img_Item\Xeno-Zapper.png" />
+    <Resource Include="Img\Img_Item\Zipline.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Img\Img_Other\Minus.png" />
+    <Resource Include="Img\Img_Other\Plus.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
