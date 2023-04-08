@@ -11,7 +11,6 @@ namespace Satisfactory_Calculator.Class_Files
         public string Item, Type;
         public float Produced_Total, Actual_Produced, Needed, Leftover;
 
-        public Info() { }
         public Info(string Item, string Type)
         {
             this.Item = Item;

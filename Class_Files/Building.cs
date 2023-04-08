@@ -15,10 +15,6 @@ namespace Satisfactory_Calculator.Class_Files
         private static bool[] usedIds = new bool[MAX_BUILDINGS];
         public int Id { get; set; }
 
-        public Building() 
-        {
-            this.Id = GetFirstUnused();
-        }
         public Building(string Building_Name, string Type, string Fuel, float Power_Min, float Power_Max)
         {
             this.Id = GetFirstUnused();

@@ -11,7 +11,6 @@ namespace Satisfactory_Calculator.Class_Files
         public string Name, Building, In_Material_1, In_Material_2, Main_Material;
         public float In_Material_Quantity_1, In_Material_Quantity_2, Main_Material_Quantity, Power_Min, Power_Max;
 
-        public Generator() { }
         public Generator(string Name, string Building, string In_Material_1, float In_Material_Quantity_1,
             string In_Material_2, float In_Material_Quantity_2, string Main_Material, float Main_Material_Quantity, float Power_Min, float Power_Max)
         {

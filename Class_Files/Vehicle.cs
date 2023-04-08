@@ -11,7 +11,6 @@ namespace Satisfactory_Calculator.Class_Files
         public string Vehicle_Name, Fuel;
         public float Quantity, Extra_Quantity, Power_Min, Power_Max;
 
-        public Vehicle() { }
         public Vehicle(string Vehicle_Name, string Fuel, float Quantity, float Extra_Quantity, float Power_Min, float Power_Max)
         {
             this.Vehicle_Name = Vehicle_Name;

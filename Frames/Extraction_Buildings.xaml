@@ -5,8 +5,8 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Satisfactory_Calculator"
       mc:Ignorable="d" 
-      FontSize="18" 
-      d:DesignHeight="625" 
+      FontSize="16" 
+      d:DesignHeight="655" 
       d:DesignWidth="800"
       Title="Extraction Buildings">
 
@@ -14,7 +14,8 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto" />
             <ColumnDefinition Width="auto" />
-            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
@@ -26,28 +27,188 @@
             <RowDefinition Height="auto" />
             <RowDefinition Height="auto" />
             <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
 
-        <TextBlock Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" Text="Add Extractor" FontSize="20" TextDecorations="Underline" />
-        <TextBlock Grid.Column="0" Grid.Row="1" Text="Extractor" />
-        <ComboBox Grid.Column="0" Grid.Row="2" Width="200" Margin="0,0,10,0" HorizontalAlignment="Left" />
+        <TextBlock Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Text="Add Extraction Building" FontSize="20" TextDecorations="Underline" />
+        <TextBlock Grid.Column="0" Grid.Row="1" Text="Extraction Building" />
+        <ComboBox x:Name="CBBuilding" Grid.Column="0" Grid.Row="2" Width="250" Margin="0,0,10,0" HorizontalAlignment="Left" SelectionChanged="AllExtractionItemsSelectionChanged" >
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="{Binding Path=IVBuilding}" Width="30" Height="30"/>
+                        <TextBlock Text="{Binding Path=TBBuilding}" />
+                    </StackPanel>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
         <TextBlock Grid.Column="1" Grid.Row="1" Text="Item" />
-        <ComboBox Grid.Column="1" Grid.Row="2" Width="200" Margin="0,0,10,0" HorizontalAlignment="Left" />
-        <TextBlock Grid.Column="2" Grid.Row="1" Text="Resource's Purity" />
-        <ComboBox Grid.Column="2" Grid.Row="2" Width="200" Margin="0,0,10,0" HorizontalAlignment="Left" />
-        <ListView Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="3" Width="700" Height="200" Margin="0,10,10,10" >
-
+        <ComboBox x:Name="CBItem" Grid.Column="1" Grid.Row="2" Width="250" Margin="0,0,10,0" HorizontalAlignment="Left" SelectionChanged="AllExtractionItemsSelectionChanged" >
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="{Binding Path=IVItem}" Width="30" Height="30"/>
+                        <TextBlock Text="{Binding Path=TBItem}" />
+                    </StackPanel>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+        <TextBlock Grid.Column="2" Grid.Row="1" Text="Purity" />
+        <ComboBox x:Name="CBPurity" Grid.Column="2" Grid.Row="2" Grid.ColumnSpan="2" Width="250" Margin="0,0,10,0" HorizontalAlignment="Left" SelectionChanged="AllExtractionItemsSelectionChanged" >
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="{Binding Path=IVPurity}" Width="30" Height="30"/>
+                        <TextBlock Text="{Binding Path=TBPurity}" />
+                    </StackPanel>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+        <ListView x:Name="ListViewAllExtractionBuildings" Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="4" Width="800" Height="200" Margin="0,10,10,10" >
+            <ListView.View>
+                <GridView>
+                    <GridView.Columns>
+                        <GridViewColumn Header="Building" Width="100">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Image Source="{Binding Path=IVBuilding}" Width="30" Height="30"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Name" Width="360">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Path=TBName}" />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Produce" Width="156">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal" Visibility="{Binding Path=SPProduce}" Height="{Binding Path=HProduce}">
+                                        <TextBlock Text="{Binding Path=TBProduce}" />
+                                        <Image Source="{Binding Path=IVProduce}" Width="30" Height="30" Margin="0,0,10,0" />
+                                    </StackPanel>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Purity" Width="156">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Path=TBPurity}"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                    </GridView.Columns>
+                </GridView>
+            </ListView.View>
         </ListView>
-        <Button x:Name="BtnAddBuilding" Grid.Column="0" Grid.Row="4" Content="Add Building" />
-        <TextBlock Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="3" Text="Edit Extractor" FontSize="20" TextDecorations="Underline" />
-        <TextBlock Grid.Column="0" Grid.Row="6" Text="Extractor" />
-        <ComboBox Grid.Column="0" Grid.Row="7" Width="200" Margin="0,0,10,0" HorizontalAlignment="Left" />
+        <Button x:Name="BtnAddBuilding" Grid.Column="0" Grid.Row="4" Content="Add Building" Click="BtnAddBuilding_Click" Height="30" />
+        <TextBlock Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2" Text="Edit Extraction Building" FontSize="20" TextDecorations="Underline" />
+        <TextBlock Grid.Column="0" Grid.Row="6" Text="Extraction Building" />
+        <ComboBox x:Name="CBMyBuilding" Grid.Column="0" Grid.Row="7" Width="250" Margin="0,0,10,0" HorizontalAlignment="Left" SelectionChanged="MyExtractionItemsSelectionChanged" >
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="{Binding Path=IVMyBuilding}" Width="30" Height="30"/>
+                        <TextBlock Text="{Binding Path=TBMyBuilding}" />
+                    </StackPanel>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
         <TextBlock Grid.Column="1" Grid.Row="6" Text="Item" />
-        <ComboBox Grid.Column="1" Grid.Row="7" Width="200" Margin="0,0,10,0" HorizontalAlignment="Left" />
-        <TextBlock Grid.Column="2" Grid.Row="6" Text="Resource's Purity" />
-        <ComboBox Grid.Column="2" Grid.Row="7" Width="200" Margin="0,0,10,0" HorizontalAlignment="Left" />
-        <ListView Grid.Column="0" Grid.Row="8" Grid.ColumnSpan="3" Width="700" Height="200" Margin="0,10,10,10" >
-
+        <ComboBox x:Name="CBMyItem" Grid.Column="1" Grid.Row="7" Width="250" Margin="0,0,10,0" HorizontalAlignment="Left" SelectionChanged="MyExtractionItemsSelectionChanged" >
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="{Binding Path=IVMyItem}" Width="30" Height="30"/>
+                        <TextBlock Text="{Binding Path=TBMyItem}" />
+                    </StackPanel>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+        <TextBlock Grid.Column="2" Grid.Row="6" Text="Divided" />
+        <ComboBox x:Name="CBMyDivided" Grid.Column="2" Grid.Row="7" Width="135" Margin="0,0,10,0" HorizontalAlignment="Left" SelectionChanged="MyExtractionItemsSelectionChanged" >
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="{Binding Path=IVMyDivided}" Width="30" Height="30"/>
+                        <TextBlock Text="{Binding Path=TBMyDivided}" />
+                    </StackPanel>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+        <TextBlock Grid.Column="3" Grid.Row="6" Text="Purity" />
+        <ComboBox x:Name="CBMyPurity" Grid.Column="3" Grid.Row="7" Width="135" Margin="0,0,10,0" HorizontalAlignment="Left" SelectionChanged="MyExtractionItemsSelectionChanged" >
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="{Binding Path=IVMyPurity}" Width="30" Height="30"/>
+                        <TextBlock Text="{Binding Path=TBMyPurity}" />
+                    </StackPanel>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+        <ListView x:Name="ListViewMyExtractionBuildings" Grid.Column="0" Grid.Row="8" Grid.ColumnSpan="4" Width="800" Height="200" Margin="0,10,10,10" SelectionChanged="ListViewMyExtractionBuildings_SelectionChanged" >
+            <ListView.View>
+                <GridView>
+                    <GridView.Columns>
+                        <GridViewColumn Header="Building" Width="79">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="{Binding Path=TBBuilding}"/>
+                                        <Image Source="{Binding Path=IVBuilding}" Width="30" Height="30" />
+                                    </StackPanel>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Name" Width="327">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Path=TBName}" />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Working" Width="75">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Path=TBWorking}" />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Produce" Width="147">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal" Visibility="{Binding Path=SPProduce1}" Height="{Binding Path=HProduce1}">
+                                            <TextBlock Text="{Binding Path=TBProduce1}" />
+                                            <Image Source="{Binding Path=IVProduce1}" Width="30" Height="30" Margin="0,0,10,0" />
+                                        </StackPanel>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Purity" Width="147">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Path=TBPurity}"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                    </GridView.Columns>
+                </GridView>
+            </ListView.View>
         </ListView>
+        <Button x:Name="BtnRemoveBuilding" Grid.Column="0" Grid.Row="9" Content="Remove Building" Click="BtnRemoveBuilding_Click" />
+        <TextBlock Grid.Column="1" Grid.Row="9" Text="Working at" FontSize="20" TextAlignment="Right" Margin="0,0,10,0" />
+        <StackPanel Orientation="Horizontal" Grid.Column="2" Grid.Row="9" Grid.ColumnSpan="2">
+            <Button x:Name="BtnRemovePercentage" Click="BtnRemovePercentage_Click" Width="30" Height="30" >
+                <Image Source="/Img/Img_Other/Minus.png" Width="15" />
+            </Button>
+            <TextBlock x:Name="TBPercentage" FontSize="20" Width="75" TextAlignment="Center" />
+            <Button x:Name="BtnAddPercentage" Click="BtnAddPercentage_Click" Width="30" Height="30" >
+                <Image Source="/Img/Img_Other/Plus.png" Width="15" />
+            </Button>
+        </StackPanel>
     </Grid>
 </Page>

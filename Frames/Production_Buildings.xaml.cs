@@ -26,7 +26,7 @@ namespace Satisfactory_Calculator
     /// </summary>
     public partial class Production_Buildings : Page
     {
-        [DllImport("kernel32.dll", SetLastError = true)]
+        /*[DllImport("kernel32.dll", SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
         static extern bool AllocConsole();/**/
 
@@ -55,16 +55,12 @@ namespace Satisfactory_Calculator
         {
             if(ListViewMyProductionBuildings.SelectedItem != null)
             {
-                string[] AllItems = ListViewAllProductionBuildings.SelectedItem.ToString().Replace("{", "").Replace("}", "").Replace(", ", ",").Split(',');
-
-                foreach (string Item in AllItems)
-                {
-                    string[] splitedItem = Item.Replace(" = ", "=").Split('=');
-                    if (splitedItem[0] == "TBWorking")
-                    {
-                        TBPercentage.Text = splitedItem[1];
-                    }
-                }
+                dynamic Item = ListViewMyProductionBuildings.SelectedItem;
+                TBPercentage.Text = Item.TBWorking;
+            }
+            else
+            {
+                TBPercentage.Text = "";
             }
         }
 
@@ -72,26 +68,15 @@ namespace Satisfactory_Calculator
         {
             if (ListViewAllProductionBuildings.SelectedItem != null)
             {
-                string ListViewAllItems = ListViewAllProductionBuildings.SelectedItem.ToString();
+                dynamic Item = ListViewAllProductionBuildings.SelectedItem;
 
-                string[] AllItems = ListViewAllItems.Replace("{", "").Replace("}", "").Replace(", ", ",").Split(',');
-                int ItemId = -1;
-
-                foreach (string Item in AllItems)
+                foreach (Production_Item production_Item in All_Production_Items)
                 {
-                    string[] splitedItem = Item.Replace(" = ", "=").Split('=');
-                    if (splitedItem[0] == "LVProductionItemId")
+                    if (production_Item.Id == Item.LVProductionItemId)
                     {
-                        ItemId = int.Parse(splitedItem[1]);
-                        foreach (Production_Item production_Item in All_Production_Items)
-                        {
-                            if(production_Item.Id == ItemId)
-                            {
-                                My_Production_Items.Add(production_Item);
-                                AddComboBoxMyInfo();
-                                break;
-                            }
-                        }
+                        Production_Item myNewProductionItem = new Production_Item(production_Item);
+                        My_Production_Items.Add(myNewProductionItem);
+                        AddComboBoxMyInfo();
                         break;
                     }
                 }
@@ -100,89 +85,73 @@ namespace Satisfactory_Calculator
 
         private void BtnRemoveBuilding_Click(object sender, RoutedEventArgs e)
         {
-
+            dynamic Divide = CBMyDivided.SelectedItem;
+            if (Divide.TBMyDivided == "Yes")
+            {
+                dynamic Item = ListViewMyProductionBuildings.SelectedItem;
+                Production_Item ItemToRemove = null;
+                foreach(Production_Item production_Item in My_Production_Items)
+                {
+                    if(production_Item.PersonalId == Item.LVProductionItemPersonalId)
+                    {
+                        ItemToRemove = production_Item;
+                    }
+                }
+                if(ItemToRemove != null)
+                {
+                    My_Production_Items.Remove(ItemToRemove);
+                    AddComboBoxMyInfo();
+                }
+            }
         }
 
         private void BtnAddPercentage_Click(object sender, RoutedEventArgs e)
         {
-            int oldPercentage = Int32.Parse(TBPercentage.Text.ToString().Replace("%", ""));
-            int newPercentage = oldPercentage + 1;
-            ChangeItemPercentage(newPercentage, oldPercentage);
+            dynamic Divide = CBMyDivided.SelectedItem;
+            if (Divide.TBMyDivided == "Yes")
+            {
+                int oldPercentage = Int32.Parse(TBPercentage.Text.ToString().Replace("%", ""));
+                int newPercentage = oldPercentage + 1;
+                ChangeItemPercentage(newPercentage, oldPercentage);
+            }
         }
 
         private void BtnRemovePercentage_Click(object sender, RoutedEventArgs e)
         {
-            int oldPercentage = Int32.Parse(TBPercentage.Text.ToString().Replace("%", ""));
-            int newPercentage = oldPercentage - 1;
-            ChangeItemPercentage(newPercentage, oldPercentage);
+            dynamic Divide = CBMyDivided.SelectedItem;
+            if (Divide.TBMyDivided == "Yes")
+            {
+                int oldPercentage = Int32.Parse(TBPercentage.Text.ToString().Replace("%", ""));
+                int newPercentage = oldPercentage - 1;
+                ChangeItemPercentage(newPercentage, oldPercentage);
+            }
         }
+
+
+        /*************************************************************** Other Functions ***************************************************************/
 
         private void ChangeItemPercentage(int newPercentage, int oldPercentage)
         {
             if (CBMyBuilding.SelectedItem != null && ListViewMyProductionBuildings.SelectedItem != null)
             {
-                string Divide = CBMyDivided.SelectedItem.ToString().Replace("{ ", "").Replace(" }", "").Replace(", ", ",").Replace(" = ", "=").Split('=')[1];
+                dynamic DivideItem = CBMyDivided.SelectedItem;
                 if (newPercentage > 0 && newPercentage <= 100)
                 {
-                    dynamic item = ListViewMyProductionBuildings.SelectedItem;
-                    Array item_params = item.ToString().Replace("{ ", "").Replace(" }", "").Replace(", ", ",").Replace(" = ", "=").Split(',');
-                    int ItemId = -1;
-                    int ItemPercentage = -1;
-                    foreach (string param in item_params)
-                    {
-                        if (param != null)
-                        {
-                            string param1 = param.Split('=')[0];
-                            string param2 = param.Split('=')[1];
-                            if (param1 == "LVProductionItemId")
-                            {
-                                ItemId = Int32.Parse(param2);
-                            }
-                            if (param1 == "TBWorking")
-                            {
-                                ItemPercentage = Int32.Parse(param2.Replace("%",""));
-                            }
-                        }
-                    }
-                    if(ItemId >= 0 && ItemPercentage >= 0)
+                    dynamic Item = ListViewMyProductionBuildings.SelectedItem;
+
+                    int ItemPersonalId = Item.LVProductionItemPersonalId;
+                    int ItemPercentage = Int32.Parse(Item.TBWorking.Replace("%", ""));
+
+                    if(ItemPersonalId >= 0 && ItemPercentage >= 0)
                     {
                         bool done = false;
                         foreach(Production_Item production_Item in My_Production_Items)
                         {
-                            string strItem = null;
-                            if(production_Item.Id == ItemId && production_Item.Percentage == oldPercentage && !done)
+                            if(production_Item.PersonalId == ItemPersonalId && production_Item.Percentage == oldPercentage && !done)
                             {
                                 production_Item.Percentage = newPercentage;
-                            }
-                            foreach (string param in item_params)
-                            {
-                                if (param != null)
-                                {
-                                    string newStr = param;
-                                    string param1 = param.Split('=')[0];
-                                    string param2 = param.Split('=')[1];
-                                    if (param1 == "TBWorking")
-                                    {
-                                        ItemPercentage = Int32.Parse(param2.Replace("%", ""));
-                                        item.TBWorking = newPercentage + "%";
-                                        //newStr = param1 + "=" + newPercentage + "%";
-                                    }
-                                    if(strItem == null)
-                                    {
-                                        strItem = newStr;
-                                    }
-                                    else
-                                    {
-                                        strItem = strItem + "," + newStr;
-                                    }
-                                }
-                            }
-                            strItem = ( "{" + strItem + "}" ).Replace("=",":");
-                            ListViewMyProductionBuildings.SelectedItem = item;
-                            if (Divide == "Yes")
-                            {
-                                done = true;
-                                break;
+                                Item.TBWorking = newPercentage + "%";
+                                ListViewMyProductionBuildings.SelectedItem = Item;
                             }
                         }
                         TBPercentage.Text = newPercentage + "%";
@@ -197,7 +166,7 @@ namespace Satisfactory_Calculator
             CBItem.Items.Clear();
 
             /*************************************************************** Prepare Info ***************************************************************/
-            string imgBuildingPath = "/Img/Img_Building/";
+        string imgBuildingPath = "/Img/Img_Building/";
             string imgItemPath = "/Img/Img_Item/";
 
             List<string> AllDBuildings = new List<string>();
@@ -223,11 +192,9 @@ namespace Satisfactory_Calculator
                 string Iv_building = (building != null ? imgBuildingPath + building.Replace(".", "_") + ".png" : null);
                 string Tb_building = building;
 
-                dynamic item = new
-                {
-                    IVBuilding = Iv_building,
-                    TBBuilding = Tb_building
-                };
+                dynamic item = new ExpandoObject();
+                item.IVBuilding = Iv_building;
+                item.TBBuilding = Tb_building;
                 CBBuilding.Items.Add(item);
             }
 
@@ -236,11 +203,9 @@ namespace Satisfactory_Calculator
                 string Iv_item = (production_item != null ? imgItemPath + production_item.Replace(".", "_") + ".png" : null);
                 string Tb_item = production_item;
 
-                dynamic item = new
-                {
-                    IVItem = Iv_item,
-                    TBItem = Tb_item
-                };
+                dynamic item = new ExpandoObject();
+                item.IVItem = Iv_item;
+                item.TBItem = Tb_item;
                 CBItem.Items.Add(item);
             }
 
@@ -282,11 +247,11 @@ namespace Satisfactory_Calculator
                 string Iv_building = (building != null ? imgBuildingPath + building.Replace(".", "_") + ".png" : null);
                 string Tb_building = building;
 
-                dynamic item = new
-                {
-                    IVMyBuilding = Iv_building,
-                    TBMyBuilding = Tb_building
-                };
+                dynamic item = new ExpandoObject();
+
+                item.IVMyBuilding = Iv_building;
+                item.TBMyBuilding = Tb_building;
+
                 CBMyBuilding.Items.Add(item);
             }
 
@@ -295,26 +260,25 @@ namespace Satisfactory_Calculator
                 string Iv_item = (production_item != null ? imgItemPath + production_item.Replace(".", "_") + ".png" : null);
                 string Tb_item = production_item;
 
-                dynamic item = new
-                {
-                    IVMyItem = Iv_item,
-                    TBMyItem = Tb_item
-                };
+                dynamic item = new ExpandoObject();
+
+                item.IVMyItem = Iv_item;
+                item.TBMyItem = Tb_item;
+
                 CBMyItem.Items.Add(item);
             }
             if (CBMyDivided.Items.Count <= 0)
             {
                 CBMyDivided.Items.Clear();
-                dynamic yes_item = new
-                {
-                    TBMyDivided = "Yes",
-                };
-                dynamic no_item = new
-                {
-                    TBMyDivided = "No",
-                };
+
+                dynamic yes_item = new ExpandoObject();
+                yes_item.TBMyDivided = "Yes";
+                dynamic no_item = new ExpandoObject();
+                no_item.TBMyDivided = "No";
+
                 CBMyDivided.Items.Add(yes_item);
                 CBMyDivided.Items.Add(no_item);
+
                 CBMyDivided.SelectedIndex = 0;
             }
 
@@ -363,11 +327,12 @@ namespace Satisfactory_Calculator
                 Array AllProductionItemsArray = AllProductionItemsJson.Replace("{", "").Split('}');
                 foreach (string item in AllProductionItemsArray)
                 {
-                    if (item != null)
+                    if (item != null && item != "")
                     {
                         string p_item = '{' + item + '}';
                         //Console.WriteLine(p_item);
-                        Production_Item production_Item = JsonConvert.DeserializeObject<Production_Item>(p_item);
+                        dynamic dynamic_Item = JsonConvert.DeserializeObject<dynamic>(p_item);
+                        Production_Item production_Item = new Production_Item(dynamic_Item);
                         All_Production_Items.Add(production_Item);
                     }
                 }
@@ -379,7 +344,7 @@ namespace Satisfactory_Calculator
                 Array MyProductionItemsArray = MyProductionItemsJson.Replace("{", "").Split('}');
                 foreach (string item in MyProductionItemsArray)
                 {
-                    if (item != null)
+                    if (item != null && item != "")
                     {
                         string p_item = '{' + item + '}';
                         Production_Item production_Item = JsonConvert.DeserializeObject<Production_Item>(p_item);
@@ -396,15 +361,15 @@ namespace Satisfactory_Calculator
             if (CBItem.SelectedItem == null)
                 CBItem.SelectedIndex = 0;
 
-            string cb_building = CBBuilding.SelectedItem.ToString().Replace("{ ", "").Replace(" }", "").Replace(", ", ",").Replace(" = ", "=").Split(',')[1].Split('=')[1];
-            string cb_item = CBItem.SelectedItem.ToString().Replace("{ ", "").Replace(" }", "").Replace(", ", ",").Replace(" = ", "=").Split(',')[1].Split('=')[1];
+            dynamic cb_building = CBBuilding.SelectedItem;
+            dynamic cb_item = CBItem.SelectedItem;
 
             ListViewAllProductionBuildings.Items.Clear();
             foreach (Production_Item production_Item in All_Production_Items)
             {
-                if (production_Item.Building == cb_building || cb_building == "All")
+                if (production_Item.Building == cb_building.TBBuilding || cb_building.TBBuilding == "All")
                 {
-                    if (production_Item.Main_Material == cb_item || production_Item.Extra_Material == cb_item || cb_item == "All")
+                    if (production_Item.Main_Material == cb_item.TBItem || production_Item.Extra_Material == cb_item.TBItem || cb_item.TBItem == "All")
                         CreateListItemView(ListViewAllProductionBuildings, production_Item, 1);
                 }
             }
@@ -422,17 +387,17 @@ namespace Satisfactory_Calculator
 
                 List<Production_Item> yesItems = new List<Production_Item>();
 
-                string cb_building = CBMyBuilding.SelectedItem.ToString().Replace("{ ", "").Replace(" }", "").Replace(", ", ",").Replace(" = ", "=").Split(',')[1].Split('=')[1];
-                string cb_item = CBMyItem.SelectedItem.ToString().Replace("{ ", "").Replace(" }", "").Replace(", ", ",").Replace(" = ", "=").Split(',')[1].Split('=')[1];
+                dynamic cb_building = CBMyBuilding.SelectedItem;
+                dynamic cb_item = CBMyItem.SelectedItem;
 
                 ListViewMyProductionBuildings.Items.Clear();
                 if (My_Production_Items != null)
                 {
                     foreach (Production_Item production_Item in My_Production_Items)
                     {
-                        string Divide = CBMyDivided.SelectedItem.ToString().Replace("{ ", "").Replace(" }", "").Replace(", ", ",").Replace(" = ", "=").Split('=')[1];
+                        dynamic Divide = CBMyDivided.SelectedItem;
                         bool Exist = false;
-                        if (yesItems != null && Divide == "No")
+                        if (yesItems != null && Divide.TBMyDivided == "No")
                         {
                             foreach (Production_Item yes_item in yesItems)
                             {
@@ -445,7 +410,7 @@ namespace Satisfactory_Calculator
                         if (!Exist)
                         {
                             int Quantity = 1;
-                            if (Divide == "No")
+                            if (Divide.TBMyDivided == "No")
                             {
                                 Quantity = 0;
                                 foreach (Production_Item production_Item_q in My_Production_Items)
@@ -454,8 +419,8 @@ namespace Satisfactory_Calculator
                                         Quantity++;
                                 }
                             }
-                            if (production_Item.Building == cb_building || cb_building == "All")
-                                if (production_Item.Main_Material == cb_item || production_Item.Extra_Material == cb_item || cb_item == "All")
+                            if (production_Item.Building == cb_building.TBMyBuilding || cb_building.TBMyBuilding == "All")
+                                if (production_Item.Main_Material == cb_item.TBMyItem || production_Item.Extra_Material == cb_item.TBMyItem || cb_item.TBMyItem == "All")
                                     CreateListItemView(ListViewMyProductionBuildings, production_Item, Quantity);
                         }
                     }
@@ -485,6 +450,7 @@ namespace Satisfactory_Calculator
 
             string Tb_building = (produce1 != null ? Quantity + " * " : null);
             string Tb_name = production_Item.Item_Production_Name;
+            //string Tb_name = production_Item.Id+" == "+production_Item.PersonalId;
             string Tb_working = production_Item.Percentage+"%";
             string Tb_produce1 = (produce1 != null ? production_Item.Main_Material_Quantity + " * " : null);
             string Tb_produce2 = (produce2 != null ? production_Item.Extra_Material_Quantity + " * " : null);
@@ -509,46 +475,10 @@ namespace Satisfactory_Calculator
 
             if (Tb_name != null)
             {
-                dynamic newItem = new
-                {
-                    LVObject = production_Item,
-                    LVProductionItemId = production_Item.Id,
-
-                    IVBuilding = Iv_building,
-                    IVProduce1 = Iv_produce1,
-                    IVProduce2 = Iv_produce2,
-                    IVRequire1 = Iv_require1,
-                    IVRequire2 = Iv_require2,
-                    IVRequire3 = Iv_require3,
-                    IVRequire4 = Iv_require4,
-
-                    TBBuilding = Tb_building,
-                    TBName = Tb_name,
-                    TBWorking = Tb_working,
-                    TBProduce1 = Tb_produce1,
-                    TBProduce2 = Tb_produce2,
-                    TBRequire1 = Tb_require1,
-                    TBRequire2 = Tb_require2,
-                    TBRequire3 = Tb_require3,
-                    TBRequire4 = Tb_require4,
-
-                    SPProduce1 = Sp_produce1,
-                    SPProduce2 = Sp_produce2,
-                    SPRequire1 = Sp_require1,
-                    SPRequire2 = Sp_require2,
-                    SPRequire3 = Sp_require3,
-                    SPRequire4 = Sp_require4,
-
-                    HProduce1 = H_produce1,
-                    HProduce2 = H_produce2,
-                    HRequire1 = H_require1,
-                    HRequire2 = H_require2,
-                    HRequire3 = H_require3,
-                    HRequire4 = H_require4
-                };
-                /*dynamic newItem = new ExpandoObject();
+                dynamic newItem = new ExpandoObject();
                 newItem.LVObject = production_Item;
                 newItem.LVProductionItemId = production_Item.Id;
+                newItem.LVProductionItemPersonalId = production_Item.PersonalId;
 
                 newItem.IVBuilding = Iv_building;
                 newItem.IVProduce1 = Iv_produce1;
@@ -582,7 +512,7 @@ namespace Satisfactory_Calculator
                 newItem.HRequire3 = H_require3;
                 newItem.HRequire4 = H_require4;
 
-                listView.Items.Add(newItem);*/
+                listView.Items.Add(newItem);
             }
         }
     }

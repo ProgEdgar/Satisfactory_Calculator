@@ -156,7 +156,7 @@
                         <GridViewColumn Header="Building" Width="79">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <StackPanel Orientation="Horizontal" Visibility="{Binding Path=SPRequire1}" Height="{Binding Path=HRequire1}" >
+                                    <StackPanel Orientation="Horizontal">
                                         <TextBlock Text="{Binding Path=TBBuilding}"/>
                                         <Image Source="{Binding Path=IVBuilding}" Width="30" Height="30" />
                                     </StackPanel>
@@ -221,7 +221,7 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <Button x:Name="BtnRemoveBuilding" Grid.Column="0" Grid.Row="9" Content="Add Building" Click="BtnRemoveBuilding_Click" />
+        <Button x:Name="BtnRemoveBuilding" Grid.Column="0" Grid.Row="9" Content="Remove Building" Click="BtnRemoveBuilding_Click" />
         <TextBlock Grid.Column="1" Grid.Row="9" Text="Working at" FontSize="20" TextAlignment="Right" Margin="0,0,10,0" />
         <StackPanel Orientation="Horizontal" Grid.Column="2" Grid.Row="9">
             <Button x:Name="BtnRemovePercentage" Click="BtnRemovePercentage_Click" Width="30" Height="30" >

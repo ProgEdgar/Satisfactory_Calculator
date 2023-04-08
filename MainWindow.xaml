@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Satisfactory_Calculator"
         mc:Ignorable="d"
         FontSize="18"
-        Title="Satisfactory Calculator" Height="785" Width="1380" FontFamily="Bernard MT Condensed">
+        Title="Satisfactory Calculator" Height="785" Width="1380" MinHeight="785" MinWidth="1380" FontFamily="Bernard MT Condensed">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="20" />

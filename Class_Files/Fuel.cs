@@ -11,7 +11,6 @@ namespace Satisfactory_Calculator.Class_Files
         public string Item, Used_For;
         public int Energy;
 
-        public Fuel() { }
         public Fuel(string Item, int Energy, string Used_For)
         {
             this.Item = Item;
