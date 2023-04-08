@@ -24,9 +24,9 @@ namespace Satisfactory_Calculator
     public partial class Extraction_Buildings : Page
     {
         private MainWindow Main = null;
-        private List<Extractor> All_Extractors = new List<Extractor>();
         private List<Resource_Map> All_Resources_Map = new List<Resource_Map>();
         private List<Resource_Map> My_Resources_Map = new List<Resource_Map>();
+        private List<Extractor> All_Extractors = new List<Extractor>();
         public Extraction_Buildings(MainWindow mainWindow)
         {
             InitializeComponent();
@@ -64,12 +64,12 @@ namespace Satisfactory_Calculator
             {
                 dynamic Item = ListViewAllExtractionBuildings.SelectedItem;
 
-                foreach (Extractor raw_Item in All_Raw_Items)
+                foreach (Resource_Map resource_Map in All_Resources_Map)
                 {
-                    if (raw_Item.Id == Item.LVRawItemId)
+                    if (resource_Map.Id == Item.LVResourceMapId)
                     {
-                        Extractor myNewRawItem = new Extractor(raw_Item);
-                        My_Raw_Items.Add(myNewRawItem);
+                        Resource_Map myNewResourceMap = new Resource_Map(resource_Map);
+                        My_Resources_Map.Add(myNewResourceMap);
                         AddComboBoxMyInfo();
                         break;
                     }
@@ -83,17 +83,17 @@ namespace Satisfactory_Calculator
             if (Divide.TBMyDivided == "Yes")
             {
                 dynamic Item = ListViewMyExtractionBuildings.SelectedItem;
-                Extractor ItemToRemove = null;
-                foreach (Extractor raw_Item in My_Raw_Items)
+                Resource_Map ItemToRemove = null;
+                foreach (Resource_Map resource_Map in My_Resources_Map)
                 {
-                    if (raw_Item.PersonalId == Item.LVRawItemPersonalId)
+                    if (resource_Map.PersonalId == Item.LVResourceMapPersonalId)
                     {
-                        ItemToRemove = raw_Item;
+                        ItemToRemove = resource_Map;
                     }
                 }
                 if (ItemToRemove != null)
                 {
-                    My_Raw_Items.Remove(ItemToRemove);
+                    My_Resources_Map.Remove(ItemToRemove);
                     AddComboBoxMyInfo();
                 }
             }
@@ -133,17 +133,17 @@ namespace Satisfactory_Calculator
                 {
                     dynamic Item = ListViewMyExtractionBuildings.SelectedItem;
 
-                    int ItemPersonalId = Item.LVRawItemPersonalId;
+                    int ItemPersonalId = Item.LVResourceMapPersonalId;
                     int ItemPercentage = Int32.Parse(Item.TBWorking.Replace("%", ""));
 
                     if (ItemPersonalId >= 0 && ItemPercentage >= 0)
                     {
                         bool done = false;
-                        foreach (Extractor raw_Item in My_Raw_Items)
+                        foreach (Resource_Map resource_Map in My_Resources_Map)
                         {
-                            if (raw_Item.PersonalId == ItemPersonalId && raw_Item.Percentage == oldPercentage && !done)
+                            if (resource_Map.PersonalId == ItemPersonalId && resource_Map.Percentage == oldPercentage && !done)
                             {
-                                raw_Item.Percentage = newPercentage;
+                                resource_Map.Percentage = newPercentage;
                                 Item.TBWorking = newPercentage + "%";
                                 ListViewMyExtractionBuildings.SelectedItem = Item;
                             }
@@ -158,7 +158,6 @@ namespace Satisfactory_Calculator
         {
             CBBuilding.Items.Clear();
             CBItem.Items.Clear();
-            CBPurity.Items.Clear();
 
             /*************************************************************** Prepare Info ***************************************************************/
             string imgBuildingPath = "/Img/Img_Building/";
@@ -171,12 +170,19 @@ namespace Satisfactory_Calculator
             AllDItems.Add("All");
 
             /*************************************************************** ComboBoxes AllBuildings ***************************************************************/
-            foreach (Extractor raw_Item in All_Raw_Items)
+            foreach (Resource_Map resource_Map in All_Resources_Map)
             {
-                AllDBuildings.Add(raw_Item.Building);
-                AllDItems.Add(raw_Item.Main_Material);
-                if (production_Item.Extra_Material != null)
-                    AllDItems.Add(production_Item.Extra_Material);
+                string building = null;
+                foreach(Extractor extractor in All_Extractors)
+                {
+                    if(resource_Map.Type == extractor.Type)
+                    {
+                        building = extractor.Building;
+                        break;
+                    }
+                }
+                AllDBuildings.Add(building);
+                AllDItems.Add(resource_Map.Resource);
             }
 
             List<string> AllBuildings = RemoveDuplicated(AllDBuildings);
@@ -186,10 +192,20 @@ namespace Satisfactory_Calculator
             {
                 string Iv_building = (building != null ? imgBuildingPath + building.Replace(".", "_") + ".png" : null);
                 string Tb_building = building;
+                char type_building = ' ';
+                foreach (Extractor extractor in All_Extractors)
+                {
+                    if (building == extractor.Building)
+                    {
+                        type_building = extractor.Type;
+                        break;
+                    }
+                }
 
                 dynamic item = new ExpandoObject();
                 item.IVBuilding = Iv_building;
                 item.TBBuilding = Tb_building;
+                item.TBTypeBuilding = type_building;
                 CBBuilding.Items.Add(item);
             }
 
@@ -203,6 +219,31 @@ namespace Satisfactory_Calculator
                 item.TBItem = Tb_item;
                 CBItem.Items.Add(item);
             }
+            if (CBPurity.Items.Count <= 0)
+            {
+                CBPurity.Items.Clear();
+
+                dynamic all_item = new ExpandoObject();
+                all_item.TBPurity = "All";
+                all_item.TBTypePurity = 'A';
+                dynamic impure_item = new ExpandoObject();
+                impure_item.TBTypePurity = "Impure";
+                impure_item.TBTypePurity = 'I';
+                dynamic normal_item = new ExpandoObject();
+                normal_item.TBTypePurity = "Normal";
+                normal_item.TBTypePurity = 'N';
+                dynamic pure_item = new ExpandoObject();
+                pure_item.TBTypePurity = "Pure";
+                pure_item.TBTypePurity = 'P';
+
+                CBPurity.Items.Add(all_item);
+                CBPurity.Items.Add(impure_item);
+                CBPurity.Items.Add(normal_item);
+                CBPurity.Items.Add(pure_item);
+
+                CBPurity.SelectedIndex = 0;
+            }
+
 
             /*************************************************************** Change Index ***************************************************************/
 
@@ -226,12 +267,19 @@ namespace Satisfactory_Calculator
             AllMyDItems.Add("All");
 
             /*************************************************************** ComboBoxes MyBuildings ***************************************************************/
-            foreach (Production_Item production_Item in My_Production_Items)
+            foreach (Resource_Map resource_Map in My_Resources_Map)
             {
-                AllMyDBuildings.Add(production_Item.Building);
-                AllMyDItems.Add(production_Item.Main_Material);
-                if (production_Item.Extra_Material != null)
-                    AllMyDItems.Add(production_Item.Extra_Material);
+                string building = null;
+                foreach (Extractor extractor in All_Extractors)
+                {
+                    if (resource_Map.Type == extractor.Type)
+                    {
+                        building = extractor.Building;
+                        break;
+                    }
+                }
+                AllMyDBuildings.Add(building);
+                AllMyDItems.Add(resource_Map.Resource);
             }
 
             List<string> AllMyBuildings = RemoveDuplicated(AllMyDBuildings);
@@ -246,6 +294,14 @@ namespace Satisfactory_Calculator
 
                 item.IVMyBuilding = Iv_building;
                 item.TBMyBuilding = Tb_building;
+                foreach(Extractor extractor in All_Extractors)
+                {
+                    if (building == extractor.Building)
+                    {
+                        item.TBMyTypeBuilding = extractor.Type;
+                        break;
+                    }
+                }
 
                 CBMyBuilding.Items.Add(item);
             }
@@ -275,6 +331,30 @@ namespace Satisfactory_Calculator
                 CBMyDivided.Items.Add(no_item);
 
                 CBMyDivided.SelectedIndex = 0;
+            }
+            if (CBMyPurity.Items.Count <= 0)
+            {
+                CBMyPurity.Items.Clear();
+
+                dynamic all_item = new ExpandoObject();
+                all_item.TBMyPurity = "All";
+                all_item.TBMyTypePurity = 'A';
+                dynamic impure_item = new ExpandoObject();
+                impure_item.TBMyPurity = "Impure";
+                impure_item.TBMyTypePurity = 'I';
+                dynamic normal_item = new ExpandoObject();
+                normal_item.TBMyPurity = "Normal";
+                normal_item.TBMyTypePurity = 'N';
+                dynamic pure_item = new ExpandoObject();
+                pure_item.TBMyPurity = "Pure";
+                pure_item.TBMyTypePurity = 'P';
+
+                CBMyPurity.Items.Add(all_item);
+                CBMyPurity.Items.Add(impure_item);
+                CBMyPurity.Items.Add(normal_item);
+                CBMyPurity.Items.Add(pure_item);
+
+                CBMyPurity.SelectedIndex = 0;
             }
 
             /*************************************************************** Change Index ***************************************************************/
@@ -313,64 +393,96 @@ namespace Satisfactory_Calculator
 
         private void GetLists()
         {
-            All_Production_Items.Clear();
-            My_Production_Items.Clear();
-            string AllProductionItemsJson = Main.GetAllProductionItems();
-            if (AllProductionItemsJson != null)
+            All_Extractors.Clear();
+            All_Resources_Map.Clear();
+            My_Resources_Map.Clear();
+            string AllResourcesMapJson = Main.GetAllResourcesMap();
+            if (AllResourcesMapJson != null)
             {
-                AllProductionItemsJson = AllProductionItemsJson.Replace(",{", "{").Replace("[", "").Replace("]", "");
-                Array AllProductionItemsArray = AllProductionItemsJson.Replace("{", "").Split('}');
-                foreach (string item in AllProductionItemsArray)
+                AllResourcesMapJson = AllResourcesMapJson.Replace(",{", "{").Replace("[", "").Replace("]", "");
+                Array AllResourcesMapArray = AllResourcesMapJson.Replace("{", "").Split('}');
+                foreach (string item in AllResourcesMapArray)
                 {
                     if (item != null && item != "")
                     {
                         string p_item = '{' + item + '}';
                         //Console.WriteLine(p_item);
                         dynamic dynamic_Item = JsonConvert.DeserializeObject<dynamic>(p_item);
-                        Production_Item production_Item = new Production_Item(dynamic_Item);
-                        All_Production_Items.Add(production_Item);
+                        Resource_Map resource_Map = new Resource_Map(dynamic_Item);
+                        All_Resources_Map.Add(resource_Map);
                     }
                 }
             }
-            string MyProductionItemsJson = Main.GetMyProductionItems();
-            if (MyProductionItemsJson != null)
+            string MyResourcesMapJson = Main.GetMyResourcesMap();
+            if (MyResourcesMapJson != null)
             {
-                MyProductionItemsJson = MyProductionItemsJson.Replace(",{", "").Replace("[", "").Replace("]", "");
-                Array MyProductionItemsArray = MyProductionItemsJson.Replace("{", "").Split('}');
-                foreach (string item in MyProductionItemsArray)
+                MyResourcesMapJson = MyResourcesMapJson.Replace(",{", "{").Replace("[", "").Replace("]", "");
+                Array MyResourcesMapArray = MyResourcesMapJson.Replace("{", "").Split('}');
+                foreach (string item in MyResourcesMapArray)
                 {
                     if (item != null && item != "")
                     {
                         string p_item = '{' + item + '}';
-                        Production_Item production_Item = JsonConvert.DeserializeObject<Production_Item>(p_item);
-                        My_Production_Items.Add(production_Item);
+                        //Console.WriteLine(p_item);
+                        dynamic dynamic_Item = JsonConvert.DeserializeObject<dynamic>(p_item);
+                        Resource_Map resource_Map = new Resource_Map(dynamic_Item);
+                        My_Resources_Map.Add(resource_Map);
+                    }
+                }
+            }
+            string AllExtractorsJson = Main.GetAllExtractors();
+            if (AllExtractorsJson != null)
+            {
+                AllExtractorsJson = AllExtractorsJson.Replace(",{", "{").Replace("[", "").Replace("]", "");
+                Array AllExtractorsArray = AllExtractorsJson.Replace("{", "").Split('}');
+                foreach (string item in AllExtractorsArray)
+                {
+                    if (item != null && item != "")
+                    {
+                        string p_item = '{' + item + '}';
+                        //Console.WriteLine(p_item);
+                        dynamic dynamic_Item = JsonConvert.DeserializeObject<dynamic>(p_item);
+                        Extractor extractor = new Extractor(dynamic_Item);
+                        All_Extractors.Add(extractor);
                     }
                 }
             }
         }
 
-        private void UpdateListViewAllProductionBuildings()
+        private void UpdateListViewAllExtractionBuildings()
         {
             if (CBBuilding.SelectedItem == null)
                 CBBuilding.SelectedIndex = 0;
             if (CBItem.SelectedItem == null)
                 CBItem.SelectedIndex = 0;
+            if (CBPurity.SelectedItem == null)
+                CBPurity.SelectedIndex = 0;
 
             dynamic cb_building = CBBuilding.SelectedItem;
             dynamic cb_item = CBItem.SelectedItem;
+            dynamic cb_purity = CBPurity.SelectedItem;
 
-            ListViewAllProductionBuildings.Items.Clear();
-            foreach (Production_Item production_Item in All_Production_Items)
+            ListViewAllExtractionBuildings.Items.Clear();
+            foreach (Resource_Map resource_Map in All_Resources_Map)
             {
-                if (production_Item.Building == cb_building.TBBuilding || cb_building.TBBuilding == "All")
+                if ((resource_Map.Type == cb_building.TBTypeBuilding || cb_building.TBBuilding == "All") && resource_Map.Type != 'G')
                 {
-                    if (production_Item.Main_Material == cb_item.TBItem || production_Item.Extra_Material == cb_item.TBItem || cb_item.TBItem == "All")
-                        CreateListItemView(ListViewAllProductionBuildings, production_Item, 1);
+                    if (resource_Map.Resource == cb_item.TBItem || cb_item.TBItem == "All")
+                    {
+                        if (resource_Map.Purity == cb_purity.TBTypePurity || cb_purity.TBTypePurity == 'A')
+                        {
+                            foreach(Extractor extractor in All_Extractors)
+                            {
+                                if(extractor.Type == resource_Map.Type && extractor.Purity == resource_Map.Purity)
+                                    CreateListItemView(ListViewAllExtractionBuildings, resource_Map, 1, extractor.Building_Code);
+                            }
+                        }
+                    }
                 }
             }
         }
 
-        private void UpdateListViewMyProductionBuildings()
+        private void UpdateListViewMyExtractionBuildings()
         {
             if (CBMyBuilding.Items.Count > 0 && CBMyItem.Items.Count > 0 && CBMyDivided.Items.Count > 0)
             {
@@ -380,28 +492,31 @@ namespace Satisfactory_Calculator
                     CBMyItem.SelectedIndex = 0;
                 if (CBMyDivided.SelectedItem == null)
                     CBMyDivided.SelectedIndex = 0;
+                if (CBMyPurity.SelectedItem == null)
+                    CBMyPurity.SelectedIndex = 0;
 
-                List<Production_Item> yesItems = new List<Production_Item>();
+                List<Resource_Map> yesItems = new List<Resource_Map>();
 
                 dynamic cb_building = CBMyBuilding.SelectedItem;
                 dynamic cb_item = CBMyItem.SelectedItem;
+                dynamic cb_purity = CBMyPurity.SelectedItem;
 
-                ListViewMyProductionBuildings.Items.Clear();
-                if (My_Production_Items != null)
+                ListViewMyExtractionBuildings.Items.Clear();
+                if (My_Resources_Map != null)
                 {
-                    foreach (Production_Item production_Item in My_Production_Items)
+                    foreach (Resource_Map resource_Map in My_Resources_Map)
                     {
                         dynamic Divide = CBMyDivided.SelectedItem;
                         bool Exist = false;
                         if (yesItems != null && Divide.TBMyDivided == "No")
                         {
-                            foreach (Production_Item yes_item in yesItems)
+                            foreach (Resource_Map yes_item in yesItems)
                             {
-                                if (production_Item.Id == yes_item.Id && production_Item.Percentage == yes_item.Percentage)
+                                if (resource_Map.Id == yes_item.Id && resource_Map.Percentage == yes_item.Percentage)
                                     Exist = true;
                             }
                         }
-                        yesItems.Add(production_Item);
+                        yesItems.Add(resource_Map);
 
                         if (!Exist)
                         {
@@ -409,104 +524,104 @@ namespace Satisfactory_Calculator
                             if (Divide.TBMyDivided == "No")
                             {
                                 Quantity = 0;
-                                foreach (Production_Item production_Item_q in My_Production_Items)
+                                foreach (Resource_Map resource_Map_q in My_Resources_Map)
                                 {
-                                    if (production_Item.Id == production_Item_q.Id && production_Item.Percentage == production_Item_q.Percentage)
+                                    if (resource_Map.Id == resource_Map_q.Id && resource_Map.Percentage == resource_Map_q.Percentage)
                                         Quantity++;
                                 }
                             }
-                            if (production_Item.Building == cb_building.TBMyBuilding || cb_building.TBMyBuilding == "All")
-                                if (production_Item.Main_Material == cb_item.TBMyItem || production_Item.Extra_Material == cb_item.TBMyItem || cb_item.TBMyItem == "All")
-                                    CreateListItemView(ListViewMyProductionBuildings, production_Item, Quantity);
+                            if (resource_Map.Type == cb_building.TBMyTypeBuilding || cb_building.TBMyBuilding == "All")
+                            {
+                                if (resource_Map.Resource == cb_item.TBItem || cb_item.TBItem == "All")
+                                {
+
+                                }
+                                    if (resource_Map.Purity == cb_purity.TBTypePurity || cb_purity.TBTypePurity == 'A')
+                                {
+                                    foreach (Extractor extractor in All_Extractors)
+                                    {
+                                        if (extractor.Type == resource_Map.Type)
+                                            CreateListItemView(ListViewAllExtractionBuildings, resource_Map, Quantity, extractor.Building_Code);
+                                    }
+                                }
+                            }
                         }
                     }
                 }
             }
         }
 
-        private void CreateListItemView(ListView listView, Production_Item production_Item, int Quantity)
+        private void CreateListItemView(ListView listView, Resource_Map resource_Map, int Quantity, string building_code)
         {
             string imgBuildingPath = "/Img/Img_Building/";
             string imgItemPath = "/Img/Img_Item/";
-            string building = production_Item.Building;
-            string produce1 = production_Item.Main_Material;
-            string produce2 = production_Item.Extra_Material;
-            string require1 = production_Item.In_Material_1;
-            string require2 = production_Item.In_Material_2;
-            string require3 = production_Item.In_Material_3;
-            string require4 = production_Item.In_Material_4;
+            string building = null;
+            int produce_quantity = 0;
+            foreach (Extractor extractor in All_Extractors)
+            {
+                if(extractor.Type == resource_Map.Type && extractor.Building_Code == building_code && extractor.Purity == resource_Map.Purity)
+                {
+                    building = extractor.Building;
+                    produce_quantity = extractor.Item_Quantity;
+                    break;
+                }
+            }
+            char type_building = resource_Map.Type;
+            string produce = resource_Map.Resource;
+            string purity = null;
+            char type_purity = resource_Map.Purity;
+            switch (resource_Map.Purity)
+            {
+                case 'I':
+                    purity = "Impure";
+                    break;
+                case 'N':
+                    purity = "Normal";
+                    break;
+                case 'P':
+                    purity = "Pure";
+                    break;
+            }
 
             string Iv_building = (building != null ? imgBuildingPath + building.Replace(".", "_") + ".png" : null);
-            string Iv_produce1 = (produce1 != null ? imgItemPath + produce1.Replace(".", "_") + ".png" : null);
-            string Iv_produce2 = (produce2 != null ? imgItemPath + produce2.Replace(".", "_") + ".png" : null);
-            string Iv_require1 = (require1 != null ? imgItemPath + require1.Replace(".", "_") + ".png" : null);
-            string Iv_require2 = (require2 != null ? imgItemPath + require2.Replace(".", "_") + ".png" : null);
-            string Iv_require3 = (require3 != null ? imgItemPath + require3.Replace(".", "_") + ".png" : null);
-            string Iv_require4 = (require4 != null ? imgItemPath + require4.Replace(".", "_") + ".png" : null);
+            string Iv_produce = (produce != null ? imgItemPath + produce.Replace(".", "_") + ".png" : null);
 
-            string Tb_building = (produce1 != null ? Quantity + " * " : null);
-            string Tb_name = production_Item.Item_Production_Name;
+            string Tb_building = (produce != null ? Quantity + " * " : null);
+            string Tb_building_code = building_code;
+            char Tb_type_building = type_building;
+            string Tb_name = produce;
             //string Tb_name = production_Item.Id+" == "+production_Item.PersonalId;
-            string Tb_working = production_Item.Percentage + "%";
-            string Tb_produce1 = (produce1 != null ? production_Item.Main_Material_Quantity + " * " : null);
-            string Tb_produce2 = (produce2 != null ? production_Item.Extra_Material_Quantity + " * " : null);
-            string Tb_require1 = (require1 != null ? production_Item.In_Material_Quantity_1 + " * " : null);
-            string Tb_require2 = (require2 != null ? production_Item.In_Material_Quantity_2 + " * " : null);
-            string Tb_require3 = (require3 != null ? production_Item.In_Material_Quantity_3 + " * " : null);
-            string Tb_require4 = (require4 != null ? production_Item.In_Material_Quantity_4 + " * " : null);
+            string Tb_working = resource_Map.Percentage + "%";
+            string Tb_produce = (produce != null ? produce_quantity + " * " : null);
+            string Tb_purity = (produce != null ? purity : null);
+            char Tb_type_purity = type_purity;
 
-            string Sp_produce1 = (produce1 != null ? "Visible" : "Hidden");
-            string Sp_produce2 = (produce2 != null ? "Visible" : "Hidden");
-            string Sp_require1 = (require1 != null ? "Visible" : "Hidden");
-            string Sp_require2 = (require2 != null ? "Visible" : "Hidden");
-            string Sp_require3 = (require3 != null ? "Visible" : "Hidden");
-            string Sp_require4 = (require4 != null ? "Visible" : "Hidden");
+            string Sp_produce = (produce != null ? "Visible" : "Hidden");
 
-            string H_produce1 = (produce1 != null ? "auto" : "0");
-            string H_produce2 = (produce2 != null ? "auto" : "0");
-            string H_require1 = (require1 != null ? "auto" : "0");
-            string H_require2 = (require2 != null ? "auto" : "0");
-            string H_require3 = (require3 != null ? "auto" : "0");
-            string H_require4 = (require4 != null ? "auto" : "0");
+            string H_produce = (produce != null ? "auto" : "0");
 
             if (Tb_name != null)
             {
                 dynamic newItem = new ExpandoObject();
-                newItem.LVObject = production_Item;
-                newItem.LVProductionItemId = production_Item.Id;
-                newItem.LVProductionItemPersonalId = production_Item.PersonalId;
+                newItem.LVObject = resource_Map;
+                newItem.LVResourceMapId = resource_Map.Id;
+                newItem.LVResourceMapPersonalId = resource_Map.PersonalId;
 
                 newItem.IVBuilding = Iv_building;
-                newItem.IVProduce1 = Iv_produce1;
-                newItem.IVProduce2 = Iv_produce2;
-                newItem.IVRequire1 = Iv_require1;
-                newItem.IVRequire2 = Iv_require2;
-                newItem.IVRequire3 = Iv_require3;
-                newItem.IVRequire4 = Iv_require4;
+                newItem.IVProduce = Iv_produce;
 
                 newItem.TBBuilding = Tb_building;
+                newItem.TBBuildingCode = Tb_building_code;
+                newItem.TBTypeBuilding = Tb_type_building;
                 newItem.TBName = Tb_name;
                 newItem.TBWorking = Tb_working;
-                newItem.TBProduce1 = Tb_produce1;
-                newItem.TBProduce2 = Tb_produce2;
-                newItem.TBRequire1 = Tb_require1;
-                newItem.TBRequire2 = Tb_require2;
-                newItem.TBRequire3 = Tb_require3;
-                newItem.TBRequire4 = Tb_require4;
+                newItem.TBProduce = Tb_produce;
+                newItem.TBPurity = Tb_purity;
+                newItem.TBTypePurity = Tb_type_purity;
 
-                newItem.SPProduce1 = Sp_produce1;
-                newItem.SPProduce2 = Sp_produce2;
-                newItem.SPRequire1 = Sp_require1;
-                newItem.SPRequire2 = Sp_require2;
-                newItem.SPRequire3 = Sp_require3;
-                newItem.SPRequire4 = Sp_require4;
+                newItem.SPProduce = Sp_produce;
 
-                newItem.HProduce1 = H_produce1;
-                newItem.HProduce2 = H_produce2;
-                newItem.HRequire1 = H_require1;
-                newItem.HRequire2 = H_require2;
-                newItem.HRequire3 = H_require3;
-                newItem.HRequire4 = H_require4;
+                newItem.HProduce = H_produce;
 
                 listView.Items.Add(newItem);
             }

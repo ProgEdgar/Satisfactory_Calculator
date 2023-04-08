@@ -33,15 +33,15 @@ namespace Satisfactory_Calculator
         private List<Fuel> All_Fuel = new List<Fuel>();
         private List<Generator> All_Generators = new List<Generator>();
         private List<Production_Item> All_Production_Items = new List<Production_Item>();
-        private List<Extractor> All_Raw_Items = new List<Extractor>();
-        private List<Resource_Map> All_Resources = new List<Resource_Map>();
+        private List<Extractor> All_Extractors = new List<Extractor>();
+        private List<Resource_Map> All_Resources_Map = new List<Resource_Map>();
         private List<Vehicle> All_Vehicles = new List<Vehicle>();
 
 
         private List<Building> My_Buildings = new List<Building>();
         private List<Generator> My_Generators = new List<Generator>();
         private List<Production_Item> My_Production_Items = new List<Production_Item>();
-        private List<Extractor> My_Raw_Items = new List<Extractor>();
+        private List<Resource_Map> My_Resources_Map = new List<Resource_Map>();
         private List<Vehicle> My_Vehicles = new List<Vehicle>();
         private List<Info> My_Info = new List<Info>();
 
@@ -108,13 +108,13 @@ namespace Satisfactory_Calculator
         public string GetAllFuel() { return GetStringJson(2); }
         public string GetAllGenerators() { return GetStringJson(3); }
         public string GetAllProductionItems() { return GetStringJson(4); }
-        public string GetAllRawItems() { return GetStringJson(5); }
-        public string GetAllResources() { return GetStringJson(6); }
+        public string GetAllExtractors() { return GetStringJson(5); }
+        public string GetAllResourcesMap() { return GetStringJson(6); }
         public string GetAllVehicles() { return GetStringJson(7); }
         public string GetMyBuildings() { return GetStringJson(8); }
         public string GetMyGenerators() { return GetStringJson(9); }
         public string GetMyProductionItems() { return GetStringJson(10); }
-        public string GetMyRawItems() { return GetStringJson(11); }
+        public string GetMyResourcesMap() { return GetStringJson(11); }
         public string GetMyVehicles() { return GetStringJson(12); }
 
         private string GetStringJson(int index)
@@ -136,10 +136,10 @@ namespace Satisfactory_Calculator
                     strJson = JsonConvert.SerializeObject(All_Production_Items);
                     break;
                 case 5:
-                    strJson = JsonConvert.SerializeObject(All_Raw_Items);
+                    strJson = JsonConvert.SerializeObject(All_Extractors);
                     break;
                 case 6:
-                    strJson = JsonConvert.SerializeObject(All_Resources);
+                    strJson = JsonConvert.SerializeObject(All_Resources_Map);
                     break;
                 case 7:
                     strJson = JsonConvert.SerializeObject(All_Vehicles);
@@ -154,7 +154,7 @@ namespace Satisfactory_Calculator
                     strJson = JsonConvert.SerializeObject(My_Production_Items);
                     break;
                 case 11:
-                    strJson = JsonConvert.SerializeObject(My_Raw_Items);
+                    strJson = JsonConvert.SerializeObject(My_Resources_Map);
                     break;
                 case 12:
                     strJson = JsonConvert.SerializeObject(My_Vehicles);
@@ -171,13 +171,13 @@ namespace Satisfactory_Calculator
             All_Fuel.Clear();
             All_Generators.Clear();
             All_Production_Items.Clear();
-            All_Raw_Items.Clear();
-            All_Resources.Clear();
+            All_Extractors.Clear();
+            All_Resources_Map.Clear();
             All_Vehicles.Clear();
             My_Buildings.Clear();
             My_Generators.Clear();
             My_Production_Items.Clear();
-            My_Raw_Items.Clear();
+            My_Resources_Map.Clear();
             My_Vehicles.Clear();
             My_Info.Clear();
 
@@ -778,139 +778,137 @@ namespace Satisfactory_Calculator
 
             /****************************************************************** Raw Items ******************************************************************/
             Extractor miner = null;
-            miner = new Extractor("Miner Mk.1", 30, 'M', 'I');
-            All_Raw_Items.Add(miner);
-            miner = new Extractor("Miner Mk.1", 60, 'M', 'N');
-            All_Raw_Items.Add(miner);
-            miner = new Extractor("Miner Mk.1", 120, 'M', 'P');
-            All_Raw_Items.Add(miner);
-            miner = new Extractor("Miner Mk.2", 60, 'M', 'I');
-            All_Raw_Items.Add(miner);
-            miner = new Extractor("Miner Mk.2", 120, 'M', 'N');
-            All_Raw_Items.Add(miner);
-            miner = new Extractor("Miner Mk.2", 240, 'M', 'P');
-            All_Raw_Items.Add(miner);
-            miner = new Extractor("Miner Mk.3", 120, 'M', 'I');
-            All_Raw_Items.Add(miner);
-            miner = new Extractor("Miner Mk.3", 240, 'M', 'N');
-            All_Raw_Items.Add(miner);
-            miner = new Extractor("Miner Mk.3", 480, 'M', 'P');
-            All_Raw_Items.Add(miner);
+            miner = new Extractor("Miner Mk.1", "Mk.1", 30, 'M', 'I');
+            All_Extractors.Add(miner);
+            miner = new Extractor("Miner Mk.1", "Mk.1", 60, 'M', 'N');
+            All_Extractors.Add(miner);
+            miner = new Extractor("Miner Mk.1", "Mk.1", 120, 'M', 'P');
+            All_Extractors.Add(miner);
+            miner = new Extractor("Miner Mk.2", "Mk.2", 60, 'M', 'I');
+            All_Extractors.Add(miner);
+            miner = new Extractor("Miner Mk.2", "Mk.2", 120, 'M', 'N');
+            All_Extractors.Add(miner);
+            miner = new Extractor("Miner Mk.2", "Mk.2", 240, 'M', 'P');
+            All_Extractors.Add(miner);
+            miner = new Extractor("Miner Mk.3", "Mk.3", 120, 'M', 'I');
+            All_Extractors.Add(miner);
+            miner = new Extractor("Miner Mk.3", "Mk.3", 240, 'M', 'N');
+            All_Extractors.Add(miner);
+            miner = new Extractor("Miner Mk.3", "Mk.3", 480, 'M', 'P');
+            All_Extractors.Add(miner);
 
             Extractor oil_extractor = null;
-            oil_extractor = new Extractor("Oil Extractor", 60, 'O', 'I');
-            All_Raw_Items.Add(oil_extractor);
-            oil_extractor = new Extractor("Oil Extractor", 120, 'O', 'N');
-            All_Raw_Items.Add(oil_extractor);
-            oil_extractor = new Extractor("Oil Extractor", 240, 'O', 'P');
-            All_Raw_Items.Add(oil_extractor);
+            oil_extractor = new Extractor("Oil Extractor", "Oil Ex.", 60, 'O', 'I');
+            All_Extractors.Add(oil_extractor);
+            oil_extractor = new Extractor("Oil Extractor", "Oil Ex.", 120, 'O', 'N');
+            All_Extractors.Add(oil_extractor);
+            oil_extractor = new Extractor("Oil Extractor", "Oil Ex.", 240, 'O', 'P');
+            All_Extractors.Add(oil_extractor);
 
             Extractor water_extractor = null;
-            water_extractor = new Extractor("Water Extractor", 120, 'W', 'N');
-            All_Raw_Items.Add(water_extractor);
+            water_extractor = new Extractor("Water Extractor", "Wa. Ex.", 120, 'W', 'N');
+            All_Extractors.Add(water_extractor);
                     
             Extractor resource_well_extractor = null;
-            resource_well_extractor = new Extractor("Resource Well Extractor", 30, 'R', 'I');
-            All_Raw_Items.Add(resource_well_extractor);
-            resource_well_extractor = new Extractor("Resource Well Extractor", 60, 'R', 'N');
-            All_Raw_Items.Add(resource_well_extractor);
-            resource_well_extractor = new Extractor("Resource Well Extractor", 120, 'R', 'P');
-            All_Raw_Items.Add(resource_well_extractor);
+            resource_well_extractor = new Extractor("Resource Well Extractor", "We. Ex.", 30, 'R', 'I');
+            All_Extractors.Add(resource_well_extractor);
+            resource_well_extractor = new Extractor("Resource Well Extractor", "We. Ex.", 60, 'R', 'N');
+            All_Extractors.Add(resource_well_extractor);
+            resource_well_extractor = new Extractor("Resource Well Extractor", "We. Ex.", 120, 'R', 'P');
+            All_Extractors.Add(resource_well_extractor);
 
             /****************************************************************** Resource ******************************************************************/
             Resource_Map resource_nodes = null;
             resource_nodes = new Resource_Map("Limestone", 'M', 'I', 12);
-            All_Resources.Add(resource_nodes);
+            All_Resources_Map.Add(resource_nodes);
             resource_nodes = new Resource_Map("Limestone", 'M', 'N', 47);
-            All_Resources.Add(resource_nodes);
+            All_Resources_Map.Add(resource_nodes);
             resource_nodes = new Resource_Map("Limestone", 'M', 'P', 27);
-            All_Resources.Add(resource_nodes);
+            All_Resources_Map.Add(resource_nodes);
             resource_nodes = new Resource_Map("Iron Ore", 'M', 'I', 33);
-            All_Resources.Add(resource_nodes);
+            All_Resources_Map.Add(resource_nodes);
             resource_nodes = new Resource_Map("Iron Ore", 'M', 'N', 41);
-            All_Resources.Add(resource_nodes);
+            All_Resources_Map.Add(resource_nodes);
             resource_nodes = new Resource_Map("Iron Ore", 'M', 'P', 46);
-            All_Resources.Add(resource_nodes);
+            All_Resources_Map.Add(resource_nodes);
             resource_nodes = new Resource_Map("Copper Ore", 'M', 'I', 9);
-            All_Resources.Add(resource_nodes);
+            All_Resources_Map.Add(resource_nodes);
             resource_nodes = new Resource_Map("Copper Ore", 'M', 'N', 28);
-            All_Resources.Add(resource_nodes);
+            All_Resources_Map.Add(resource_nodes);
             resource_nodes = new Resource_Map("Copper Ore", 'M', 'P', 12);
-            All_Resources.Add(resource_nodes);
+            All_Resources_Map.Add(resource_nodes);
             resource_nodes = new Resource_Map("Caterium Ore", 'M', 'N', 8);
-            All_Resources.Add(resource_nodes);
+            All_Resources_Map.Add(resource_nodes);
             resource_nodes = new Resource_Map("Caterium Ore", 'M', 'P', 8);
-            All_Resources.Add(resource_nodes);
+            All_Resources_Map.Add(resource_nodes);
             resource_nodes = new Resource_Map("Coal", 'M', 'I', 6);
-            All_Resources.Add(resource_nodes);
+            All_Resources_Map.Add(resource_nodes);
             resource_nodes = new Resource_Map("Coal", 'M', 'N', 29);
-            All_Resources.Add(resource_nodes);
+            All_Resources_Map.Add(resource_nodes);
             resource_nodes = new Resource_Map("Coal", 'M', 'P', 15);
-            All_Resources.Add(resource_nodes);
+            All_Resources_Map.Add(resource_nodes);
             resource_nodes = new Resource_Map("Crude Oil", 'O', 'I', 10);
-            All_Resources.Add(resource_nodes);
+            All_Resources_Map.Add(resource_nodes);
             resource_nodes = new Resource_Map("Crude Oil", 'O', 'N', 12);
-            All_Resources.Add(resource_nodes);
+            All_Resources_Map.Add(resource_nodes);
             resource_nodes = new Resource_Map("Crude Oil", 'O', 'P', 8);
-            All_Resources.Add(resource_nodes);
+            All_Resources_Map.Add(resource_nodes);
             resource_nodes = new Resource_Map("Sulfur", 'M', 'I', 1);
-            All_Resources.Add(resource_nodes);
+            All_Resources_Map.Add(resource_nodes);
             resource_nodes = new Resource_Map("Sulfur", 'M', 'N', 7);
-            All_Resources.Add(resource_nodes);
+            All_Resources_Map.Add(resource_nodes);
             resource_nodes = new Resource_Map("Sulfur", 'M', 'P', 3);
-            All_Resources.Add(resource_nodes);
+            All_Resources_Map.Add(resource_nodes);
             resource_nodes = new Resource_Map("Bauxite", 'M', 'I', 5);
-            All_Resources.Add(resource_nodes);
+            All_Resources_Map.Add(resource_nodes);
             resource_nodes = new Resource_Map("Bauxite", 'M', 'N', 6);
-            All_Resources.Add(resource_nodes);
+            All_Resources_Map.Add(resource_nodes);
             resource_nodes = new Resource_Map("Bauxite", 'M', 'P', 6);
-            All_Resources.Add(resource_nodes);
+            All_Resources_Map.Add(resource_nodes);
             resource_nodes = new Resource_Map("Raw Quartz", 'M', 'N', 11);
-            All_Resources.Add(resource_nodes);
+            All_Resources_Map.Add(resource_nodes);
             resource_nodes = new Resource_Map("Raw Quartz", 'M', 'P', 5);
-            All_Resources.Add(resource_nodes);
+            All_Resources_Map.Add(resource_nodes);
             resource_nodes = new Resource_Map("Uranium", 'M', 'I', 1);
-            All_Resources.Add(resource_nodes);
+            All_Resources_Map.Add(resource_nodes);
             resource_nodes = new Resource_Map("Uranium", 'M', 'N', 3);
-            All_Resources.Add(resource_nodes);
+            All_Resources_Map.Add(resource_nodes);
             resource_nodes = new Resource_Map("S.A.M Ore", 'M', 'I', 8);
-            All_Resources.Add(resource_nodes);
+            All_Resources_Map.Add(resource_nodes);
             resource_nodes = new Resource_Map("S.A.M Ore", 'M', 'N', 5);
-            All_Resources.Add(resource_nodes);
+            All_Resources_Map.Add(resource_nodes);
 
             Resource_Map resource_wells = null;
             resource_wells = new Resource_Map("Nitrogen Gas", 'R', 'I', 2);
-            All_Resources.Add(resource_wells);
+            All_Resources_Map.Add(resource_wells);
             resource_wells = new Resource_Map("Nitrogen Gas", 'R', 'N', 7);
-            All_Resources.Add(resource_wells);
+            All_Resources_Map.Add(resource_wells);
             resource_wells = new Resource_Map("Nitrogen Gas", 'R', 'P', 36);
-            All_Resources.Add(resource_wells);
+            All_Resources_Map.Add(resource_wells);
             resource_wells = new Resource_Map("Crude Oil", 'R', 'I', 6);
-            All_Resources.Add(resource_wells);
+            All_Resources_Map.Add(resource_wells);
             resource_wells = new Resource_Map("Crude Oil", 'R', 'N', 3);
-            All_Resources.Add(resource_wells);
+            All_Resources_Map.Add(resource_wells);
             resource_wells = new Resource_Map("Crude Oil", 'R', 'P', 3);
-            All_Resources.Add(resource_wells);
+            All_Resources_Map.Add(resource_wells);
             resource_wells = new Resource_Map("Water", 'R', 'I', 7);
-            All_Resources.Add(resource_wells);
+            All_Resources_Map.Add(resource_wells);
             resource_wells = new Resource_Map("Water", 'R', 'N', 12);
-            All_Resources.Add(resource_wells);
+            All_Resources_Map.Add(resource_wells);
             resource_wells = new Resource_Map("Water", 'R', 'P', 36);
-            All_Resources.Add(resource_wells);
-            resource_wells = new Resource_Map("Geysers", 'R', 'I', 3);
-            All_Resources.Add(resource_wells);
-            resource_wells = new Resource_Map("Geysers", 'R', 'N', 9);
-            All_Resources.Add(resource_wells);
-            resource_wells = new Resource_Map("Geysers", 'R', 'P', 6);
-            All_Resources.Add(resource_wells);
+            All_Resources_Map.Add(resource_wells);
+
+            Resource_Map geysers_wells = null;
+            geysers_wells = new Resource_Map("Geysers", 'G', 'I', 3);
+            All_Resources_Map.Add(geysers_wells);
+            geysers_wells = new Resource_Map("Geysers", 'G', 'N', 9);
+            All_Resources_Map.Add(geysers_wells);
+            geysers_wells = new Resource_Map("Geysers", 'G', 'P', 6);
+            All_Resources_Map.Add(geysers_wells);
 
             Resource_Map water_source = null;
-            water_source = new Resource_Map("River", 'W', 'Q', 15);
-            All_Resources.Add(water_source);
-
-            Resource_Map quantity_wells = null;
-            quantity_wells = new Resource_Map("Wells", 'R', 'Q', 15);
-            All_Resources.Add(quantity_wells);
+            water_source = new Resource_Map("Water", 'W', 'N', 15);
+            All_Resources_Map.Add(water_source);
 
             /****************************************************************** Vehicles ******************************************************************/
             Vehicle vehicles = null;

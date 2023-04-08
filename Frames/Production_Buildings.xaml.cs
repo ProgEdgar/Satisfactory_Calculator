@@ -33,6 +33,11 @@ namespace Satisfactory_Calculator
         private MainWindow Main = null;
         private List<Production_Item> All_Production_Items = new List<Production_Item>();
         private List<Production_Item> My_Production_Items = new List<Production_Item>();
+        private string ComboBoxBuilding = null;
+        private string ComboBoxItem = null;
+        private string ComboBoxMyBuilding = null;
+        private string ComboBoxMyItem = null;
+        private string ComboBoxMyDivided = null;
         public Production_Buildings(MainWindow mainWindow)
         {
             InitializeComponent();

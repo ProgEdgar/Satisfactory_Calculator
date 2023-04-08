@@ -110,7 +110,7 @@
     <Compile Include="Class_Files\Fuel.cs" />
     <Compile Include="Class_Files\Generator.cs" />
     <Compile Include="Class_Files\Production_Item.cs" />
-    <Compile Include="Class_Files\Raw_Item.cs" />
+    <Compile Include="Class_Files\Extractor.cs" />
     <Compile Include="Class_Files\Resource_Map.cs" />
     <Compile Include="Class_Files\Vehicle.cs" />
     <Compile Include="Frames\Extraction_Buildings.xaml.cs">
