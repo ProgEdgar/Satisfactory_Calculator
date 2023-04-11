@@ -8,8 +8,8 @@ namespace Satisfactory_Calculator.Class_Files
 {
     internal class Resource_Map
     {
-        public string Resource;
-        public char Type, Purity;
+        public string Resource, Extractor_Code;
+        public char Purity, Type;
         public int Quantity, Percentage;
 
         private const int MAX_PRODUCTION_ITEMS = 10000;
