@@ -5,14 +5,16 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Satisfactory_Calculator"
       mc:Ignorable="d" 
-      FontSize="18" 
-      d:DesignHeight="600" 
+      FontSize="16" 
+      d:DesignHeight="655" 
       d:DesignWidth="800"
       Title="Vehicles">
 
     <Grid HorizontalAlignment="Left" VerticalAlignment="Top">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
@@ -23,19 +25,161 @@
             <RowDefinition Height="auto" />
             <RowDefinition Height="auto" />
             <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
-
-        <TextBlock Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" Text="Add Vehicle" FontSize="20" TextDecorations="Underline" />
+        <TextBlock Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Text="Add Vehicle" FontSize="20" TextDecorations="Underline" />
         <TextBlock Grid.Column="0" Grid.Row="1" Text="Vehicle" />
-        <ComboBox Grid.Column="0" Grid.Row="2" Width="200" Margin="0,0,10,0" HorizontalAlignment="Left" />
-        <ListView Grid.Column="0" Grid.Row="3" Width="700" Height="200" Margin="0,10,10,10" >
-
+        <ComboBox x:Name="CBVehicle" Grid.Column="0" Grid.Row="2" Width="250" Margin="0,0,10,0" HorizontalAlignment="Left" SelectionChanged="AllVehiclesSelectionChanged" >
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="{Binding Path=IVVehicle}" Width="30" Height="30"/>
+                        <TextBlock Text="{Binding Path=TBVehicle}" />
+                    </StackPanel>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+        <ListView x:Name="ListViewAllVehicles" Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="3" Width="800" Height="200" Margin="0,10,10,10" >
+            <ListView.View>
+                <GridView>
+                    <GridView.Columns>
+                        <GridViewColumn Header="Vehicle" Width="100">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Image Source="{Binding Path=IVVehicle}" Width="30" Height="30"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Name" Width="360">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Path=TBName}" />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Produce" Width="156">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="{Binding Path=TBProduce}" />
+                                        <Image Source="{Binding Path=IVProduce}" Width="30" Height="30" Margin="0,0,10,0" />
+                                    </StackPanel>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Require" Width="156">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Vertical" >
+                                        <StackPanel Orientation="Horizontal" Visibility="{Binding Path=SPRequire1}" Height="{Binding Path=HRequire1}" >
+                                            <TextBlock Text="{Binding Path=TBRequire1}"/>
+                                            <Image Source="{Binding Path=IVRequire1}" Width="30" Height="30" Margin="0,0,10,0" />
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal" Visibility="{Binding Path=SPRequire2}" Height="{Binding Path=HRequire2}" >
+                                            <TextBlock Text="{Binding Path=TBRequire2}"/>
+                                            <Image Source="{Binding Path=IVRequire2}" Width="30" Height="30" Margin="0,0,10,0" />
+                                        </StackPanel>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                    </GridView.Columns>
+                </GridView>
+            </ListView.View>
         </ListView>
-        <TextBlock Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="3" Text="Edit Vehicle" FontSize="20" TextDecorations="Underline" />
-        <TextBlock Grid.Column="0" Grid.Row="5" Text="Vehicle" />
-        <ComboBox Grid.Column="0" Grid.Row="6" Width="200" Margin="0,0,10,0" HorizontalAlignment="Left" />
-        <ListView Grid.Column="0" Grid.Row="7" Width="700" Height="200" Margin="0,10,10,10" >
-
+        <Button x:Name="BtnAddVehicle" Grid.Column="0" Grid.Row="4" Content="Add Vehicle" Click="BtnAddVehicle_Click" Height="30" />
+        <TextBlock Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2" Text="Edit Vehicle" FontSize="20" TextDecorations="Underline" />
+        <TextBlock Grid.Column="0" Grid.Row="6" Text="Vehicle" />
+        <ComboBox x:Name="CBMyVehicle" Grid.Column="0" Grid.Row="7" Width="250" Margin="0,0,10,0" HorizontalAlignment="Left" SelectionChanged="MyVehiclesSelectionChanged" >
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="{Binding Path=IVMyVehicle}" Width="30" Height="30"/>
+                        <TextBlock Text="{Binding Path=TBMyVehicle}" />
+                    </StackPanel>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+        <TextBlock Grid.Column="2" Grid.Row="6" Text="Divided" />
+        <ComboBox x:Name="CBMyDivided" Grid.Column="2" Grid.Row="7" Width="250" Margin="0,0,10,0" HorizontalAlignment="Left" SelectionChanged="MyVehiclesSelectionChanged" >
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="{Binding Path=IVMyDivided}" Width="30" Height="30"/>
+                        <TextBlock Text="{Binding Path=TBMyDivided}" />
+                    </StackPanel>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+        <ListView x:Name="ListViewMyVehicles" Grid.Column="0" Grid.Row="8" Grid.ColumnSpan="3" Width="800" Height="200" Margin="0,10,10,10" SelectionChanged="ListViewMyVehicles_SelectionChanged" >
+            <ListView.View>
+                <GridView>
+                    <GridView.Columns>
+                        <GridViewColumn Header="Vehicle" Width="79">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="{Binding Path=TBVehicle}"/>
+                                        <Image Source="{Binding Path=IVVehicle}" Width="30" Height="30" />
+                                    </StackPanel>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Name" Width="327">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Path=TBName}" />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Working" Width="75">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Path=TBWorking}" />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Produce" Width="146">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="{Binding Path=TBProduce}" />
+                                        <Image Source="{Binding Path=IVProduce}" Width="30" Height="30" Margin="0,0,10,0" />
+                                    </StackPanel>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Require" Width="146">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Vertical" >
+                                        <StackPanel Orientation="Horizontal" Visibility="{Binding Path=SPRequire1}" Height="{Binding Path=HRequire1}" >
+                                            <TextBlock Text="{Binding Path=TBRequire1}"/>
+                                            <Image Source="{Binding Path=IVRequire1}" Width="30" Height="30" Margin="0,0,10,0" />
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal" Visibility="{Binding Path=SPRequire2}" Height="{Binding Path=HRequire2}" >
+                                            <TextBlock Text="{Binding Path=TBRequire2}"/>
+                                            <Image Source="{Binding Path=IVRequire2}" Width="30" Height="30" Margin="0,0,10,0" />
+                                        </StackPanel>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                    </GridView.Columns>
+                </GridView>
+            </ListView.View>
         </ListView>
+        <Button x:Name="BtnRemoveVehicle" Grid.Column="0" Grid.Row="9" Content="Remove Vehicle" Click="BtnRemoveVehicle_Click" />
+        <TextBlock Grid.Column="1" Grid.Row="9" Text="Working at" FontSize="20" TextAlignment="Right" Margin="0,0,10,0" />
+        <StackPanel Orientation="Horizontal" Grid.Column="2" Grid.Row="9">
+            <Button x:Name="BtnRemovePercentage" Click="BtnRemovePercentage_Click" Width="30" Height="30" >
+                <Image Source="/Img/Img_Other/Minus.png" Width="15" />
+            </Button>
+            <TextBlock x:Name="TBPercentage" FontSize="20" Width="75" TextAlignment="Center" />
+            <Button x:Name="BtnAddPercentage" Click="BtnAddPercentage_Click" Width="30" Height="30" >
+                <Image Source="/Img/Img_Other/Plus.png" Width="15" />
+            </Button>
+        </StackPanel>
     </Grid>
 </Page>

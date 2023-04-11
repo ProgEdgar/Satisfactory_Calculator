@@ -26,5 +26,40 @@ namespace Satisfactory_Calculator
             InitializeComponent();
             this.mainWindow = main;
         }
+
+        private void AllVehiclesSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void BtnAddVehicle_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void MyVehiclesSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void ListViewMyVehicles_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void BtnRemoveVehicle_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void BtnAddPercentage_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void BtnRemovePercentage_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

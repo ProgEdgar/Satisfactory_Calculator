@@ -69,6 +69,7 @@ namespace Satisfactory_Calculator
                     if (resource_Map.Id == Item.LVResourceMapId)
                     {
                         Resource_Map myNewResourceMap = new Resource_Map(resource_Map);
+                        myNewResourceMap.Extractor_Code = Item.TBBuildingCode;
                         My_Resources_Map.Add(myNewResourceMap);
                         AddComboBoxMyInfo();
                         break;
@@ -105,7 +106,7 @@ namespace Satisfactory_Calculator
             if (Divide.TBMyDivided == "Yes")
             {
                 int oldPercentage = Int32.Parse(TBPercentage.Text.ToString().Replace("%", ""));
-                int newPercentage = oldPercentage + 1;
+                int newPercentage = oldPercentage - 1;
                 ChangeItemPercentage(newPercentage, oldPercentage);
             }
         }
@@ -116,7 +117,7 @@ namespace Satisfactory_Calculator
             if (Divide.TBMyDivided == "Yes")
             {
                 int oldPercentage = Int32.Parse(TBPercentage.Text.ToString().Replace("%", ""));
-                int newPercentage = oldPercentage - 1;
+                int newPercentage = oldPercentage + 1;
                 ChangeItemPercentage(newPercentage, oldPercentage);
             }
         }
@@ -178,11 +179,13 @@ namespace Satisfactory_Calculator
                     if(resource_Map.Type == extractor.Type)
                     {
                         building = extractor.Building;
-                        break;
+                        AllDBuildings.Add(building);
+                    }
+                    if (resource_Map.Type != 'G')
+                    {
+                        AllDItems.Add(resource_Map.Resource);
                     }
                 }
-                AllDBuildings.Add(building);
-                AllDItems.Add(resource_Map.Resource);
             }
 
             List<string> AllBuildings = RemoveDuplicated(AllDBuildings);
@@ -192,12 +195,14 @@ namespace Satisfactory_Calculator
             {
                 string Iv_building = (building != null ? imgBuildingPath + building.Replace(".", "_") + ".png" : null);
                 string Tb_building = building;
+                string Tb_building_code = null;
                 char type_building = ' ';
                 foreach (Extractor extractor in All_Extractors)
                 {
                     if (building == extractor.Building)
                     {
                         type_building = extractor.Type;
+                        Tb_building_code = extractor.Building_Code;
                         break;
                     }
                 }
@@ -205,6 +210,7 @@ namespace Satisfactory_Calculator
                 dynamic item = new ExpandoObject();
                 item.IVBuilding = Iv_building;
                 item.TBBuilding = Tb_building;
+                item.TBBuildingCode = Tb_building_code;
                 item.TBTypeBuilding = type_building;
                 CBBuilding.Items.Add(item);
             }
@@ -227,13 +233,13 @@ namespace Satisfactory_Calculator
                 all_item.TBPurity = "All";
                 all_item.TBTypePurity = 'A';
                 dynamic impure_item = new ExpandoObject();
-                impure_item.TBTypePurity = "Impure";
+                impure_item.TBPurity = "Impure";
                 impure_item.TBTypePurity = 'I';
                 dynamic normal_item = new ExpandoObject();
-                normal_item.TBTypePurity = "Normal";
+                normal_item.TBPurity = "Normal";
                 normal_item.TBTypePurity = 'N';
                 dynamic pure_item = new ExpandoObject();
-                pure_item.TBTypePurity = "Pure";
+                pure_item.TBPurity = "Pure";
                 pure_item.TBTypePurity = 'P';
 
                 CBPurity.Items.Add(all_item);
@@ -272,7 +278,7 @@ namespace Satisfactory_Calculator
                 string building = null;
                 foreach (Extractor extractor in All_Extractors)
                 {
-                    if (resource_Map.Type == extractor.Type)
+                    if (resource_Map.Type == extractor.Type && resource_Map.Extractor_Code == extractor.Building_Code)
                     {
                         building = extractor.Building;
                         break;
@@ -289,19 +295,22 @@ namespace Satisfactory_Calculator
             {
                 string Iv_building = (building != null ? imgBuildingPath + building.Replace(".", "_") + ".png" : null);
                 string Tb_building = building;
+                string Tb_building_code = null;
 
                 dynamic item = new ExpandoObject();
 
                 item.IVMyBuilding = Iv_building;
                 item.TBMyBuilding = Tb_building;
-                foreach(Extractor extractor in All_Extractors)
+                item.TBMyTypeBuilding = ' ';
+                foreach (Extractor extractor in All_Extractors)
                 {
                     if (building == extractor.Building)
                     {
+                        Tb_building_code = extractor.Building_Code;
                         item.TBMyTypeBuilding = extractor.Type;
-                        break;
                     }
                 }
+                item.TBMyBuildingCode = Tb_building_code;
 
                 CBMyBuilding.Items.Add(item);
             }
@@ -473,8 +482,11 @@ namespace Satisfactory_Calculator
                         {
                             foreach(Extractor extractor in All_Extractors)
                             {
-                                if(extractor.Type == resource_Map.Type && extractor.Purity == resource_Map.Purity)
-                                    CreateListItemView(ListViewAllExtractionBuildings, resource_Map, 1, extractor.Building_Code);
+                                if (extractor.Building_Code == cb_building.TBBuildingCode || cb_building.TBBuilding == "All")
+                                {
+                                    if (extractor.Type == resource_Map.Type && extractor.Purity == resource_Map.Purity)
+                                        CreateListItemView(ListViewAllExtractionBuildings, resource_Map, 1, extractor.Building_Code);
+                                }
                             }
                         }
                     }
@@ -484,7 +496,7 @@ namespace Satisfactory_Calculator
 
         private void UpdateListViewMyExtractionBuildings()
         {
-            if (CBMyBuilding.Items.Count > 0 && CBMyItem.Items.Count > 0 && CBMyDivided.Items.Count > 0)
+            if (CBMyBuilding.Items.Count > 0 && CBMyItem.Items.Count > 0 && CBMyDivided.Items.Count > 0 && CBMyPurity.Items.Count > 0)
             {
                 if (CBMyBuilding.SelectedItem == null)
                     CBMyBuilding.SelectedIndex = 0;
@@ -512,7 +524,7 @@ namespace Satisfactory_Calculator
                         {
                             foreach (Resource_Map yes_item in yesItems)
                             {
-                                if (resource_Map.Id == yes_item.Id && resource_Map.Percentage == yes_item.Percentage)
+                                if (resource_Map.Id == yes_item.Id && resource_Map.Percentage == yes_item.Percentage && resource_Map.Extractor_Code == yes_item.Extractor_Code && resource_Map.Purity == yes_item.Purity)
                                     Exist = true;
                             }
                         }
@@ -526,22 +538,38 @@ namespace Satisfactory_Calculator
                                 Quantity = 0;
                                 foreach (Resource_Map resource_Map_q in My_Resources_Map)
                                 {
-                                    if (resource_Map.Id == resource_Map_q.Id && resource_Map.Percentage == resource_Map_q.Percentage)
+                                    if (resource_Map.Id == resource_Map_q.Id && resource_Map.Percentage == resource_Map_q.Percentage && resource_Map.Extractor_Code == resource_Map_q.Extractor_Code && resource_Map.Purity == resource_Map_q.Purity)
                                         Quantity++;
                                 }
                             }
                             if (resource_Map.Type == cb_building.TBMyTypeBuilding || cb_building.TBMyBuilding == "All")
                             {
-                                if (resource_Map.Resource == cb_item.TBItem || cb_item.TBItem == "All")
+                                if (resource_Map.Resource == cb_item.TBMyItem || cb_item.TBMyItem == "All")
                                 {
-
-                                }
-                                    if (resource_Map.Purity == cb_purity.TBTypePurity || cb_purity.TBTypePurity == 'A')
-                                {
-                                    foreach (Extractor extractor in All_Extractors)
+                                    if (resource_Map.Purity == cb_purity.TBMyTypePurity || cb_purity.TBMyTypePurity == 'A')
                                     {
-                                        if (extractor.Type == resource_Map.Type)
-                                            CreateListItemView(ListViewAllExtractionBuildings, resource_Map, Quantity, extractor.Building_Code);
+                                        foreach (Extractor extractor in All_Extractors)
+                                        {
+                                            if (extractor.Building_Code == cb_building.TBMyBuildingCode || cb_building.TBMyBuilding == "All")
+                                            {
+                                                if (extractor.Type == resource_Map.Type)
+                                                {
+                                                    if (resource_Map.Extractor_Code == null)
+                                                    {
+                                                        resource_Map.Extractor_Code = extractor.Building_Code;
+                                                        CreateListItemView(ListViewMyExtractionBuildings, resource_Map, Quantity, extractor.Building_Code);
+                                                    }
+                                                    else
+                                                    {
+                                                        if (extractor.Building_Code == resource_Map.Extractor_Code)
+                                                        {
+                                                            CreateListItemView(ListViewMyExtractionBuildings, resource_Map, Quantity, extractor.Building_Code);
+                                                            break;
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
                                     }
                                 }
                             }
