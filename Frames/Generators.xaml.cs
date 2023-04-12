@@ -66,7 +66,7 @@ namespace Satisfactory_Calculator
 
                 foreach (Generator generator in All_Generators)
                 {
-                    if (generator.Id == Item.LVProductionItemId)
+                    if (generator.Id == Item.LVGeneratorId)
                     {
                         Generator myNewGenerator = new Generator(generator);
                         My_Generators.Add(myNewGenerator);
@@ -289,7 +289,7 @@ namespace Satisfactory_Calculator
                     }
                 }
             }
-            string MyGeneratorsJson = Main.GetMyProductionItems();
+            string MyGeneratorsJson = Main.GetMyGenerators();
             if (MyGeneratorsJson != null)
             {
                 MyGeneratorsJson = MyGeneratorsJson.Replace(",{", "").Replace("[", "").Replace("]", "");
@@ -387,7 +387,7 @@ namespace Satisfactory_Calculator
             string Iv_require1 = (require1 != null ? imgItemPath + require1.Replace(".", "_") + ".png" : null);
             string Iv_require2 = (require2 != null ? imgItemPath + require2.Replace(".", "_") + ".png" : null);
 
-            string Tb_building = (produce != null ? Quantity + " * " : null);
+            string Tb_building = Quantity + " * ";
             string Tb_name = generator.Name;
             string Tb_working = generator.Percentage + "%";
             string Tb_produce = (produce != null ? generator.Main_Material_Quantity + " * " : null);
@@ -406,8 +406,8 @@ namespace Satisfactory_Calculator
             {
                 dynamic newItem = new ExpandoObject();
                 newItem.LVObject = generator;
-                newItem.LVProductionItemId = generator.Id;
-                newItem.LVProductionItemPersonalId = generator.PersonalId;
+                newItem.LVGeneratorId = generator.Id;
+                newItem.LVGeneratorPersonalId = generator.PersonalId;
 
                 newItem.IVBuilding = Iv_building;
                 newItem.IVProduce = Iv_produce;
