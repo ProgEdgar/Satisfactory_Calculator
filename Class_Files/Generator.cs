@@ -38,7 +38,7 @@ namespace Satisfactory_Calculator.Class_Files
 
         public Generator(Generator generator)
         {
-            this.Id = GetFirstIdUnused();
+            this.Id = generator.Id;
             this.PersonalId = GetFirstPersonalIdUnused();
             this.Name = generator.Name;
             this.Building = generator.Building;
@@ -50,7 +50,7 @@ namespace Satisfactory_Calculator.Class_Files
             this.Main_Material_Quantity = generator.Main_Material_Quantity;
             this.Power_Min = generator.Power_Min;
             this.Power_Max = generator.Power_Max;
-            this.Percentage = 100;
+            this.Percentage = generator.Percentage;
         }
 
         public Generator(dynamic generator)
@@ -67,7 +67,7 @@ namespace Satisfactory_Calculator.Class_Files
             this.Main_Material_Quantity = generator.Main_Material_Quantity;
             this.Power_Min = (generator.Power_Min != null? generator.Power_Min:0);
             this.Power_Max = (generator.Power_Max != null ? generator.Power_Max : 0);
-            this.Percentage = 100;
+            this.Percentage = generator.Percentage;
         }
 
         private static int GetFirstIdUnused()
