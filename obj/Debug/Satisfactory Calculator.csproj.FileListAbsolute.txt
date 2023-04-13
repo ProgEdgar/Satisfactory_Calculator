@@ -92,3 +92,50 @@ E:\Satisfactory Calculator\Project\Satisfactory Calculator\Satisfactory_Calculat
 E:\Satisfactory Calculator\Project\Satisfactory Calculator\Satisfactory_Calculator\obj\Debug\Satisfactory Calculator.csproj.CopyComplete
 E:\Satisfactory Calculator\Project\Satisfactory Calculator\Satisfactory_Calculator\obj\Debug\Satisfactory Calculator.exe
 E:\Satisfactory Calculator\Project\Satisfactory Calculator\Satisfactory_Calculator\obj\Debug\Satisfactory Calculator.pdb
+C:\Users\Nildgar\Documents\My Projects\Satisfactory_Calculator\bin\Debug\Satisfactory Calculator.exe.config
+C:\Users\Nildgar\Documents\My Projects\Satisfactory_Calculator\bin\Debug\Satisfactory Calculator.exe
+C:\Users\Nildgar\Documents\My Projects\Satisfactory_Calculator\bin\Debug\Satisfactory Calculator.pdb
+C:\Users\Nildgar\Documents\My Projects\Satisfactory_Calculator\bin\Debug\Microsoft.Bcl.AsyncInterfaces.dll
+C:\Users\Nildgar\Documents\My Projects\Satisfactory_Calculator\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Nildgar\Documents\My Projects\Satisfactory_Calculator\bin\Debug\System.Buffers.dll
+C:\Users\Nildgar\Documents\My Projects\Satisfactory_Calculator\bin\Debug\System.Memory.dll
+C:\Users\Nildgar\Documents\My Projects\Satisfactory_Calculator\bin\Debug\System.Numerics.Vectors.dll
+C:\Users\Nildgar\Documents\My Projects\Satisfactory_Calculator\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
+C:\Users\Nildgar\Documents\My Projects\Satisfactory_Calculator\bin\Debug\System.Text.Encodings.Web.dll
+C:\Users\Nildgar\Documents\My Projects\Satisfactory_Calculator\bin\Debug\System.Text.Json.dll
+C:\Users\Nildgar\Documents\My Projects\Satisfactory_Calculator\bin\Debug\System.Threading.Tasks.Extensions.dll
+C:\Users\Nildgar\Documents\My Projects\Satisfactory_Calculator\bin\Debug\System.ValueTuple.dll
+C:\Users\Nildgar\Documents\My Projects\Satisfactory_Calculator\bin\Debug\Microsoft.Bcl.AsyncInterfaces.xml
+C:\Users\Nildgar\Documents\My Projects\Satisfactory_Calculator\bin\Debug\Newtonsoft.Json.xml
+C:\Users\Nildgar\Documents\My Projects\Satisfactory_Calculator\bin\Debug\System.Buffers.xml
+C:\Users\Nildgar\Documents\My Projects\Satisfactory_Calculator\bin\Debug\System.Memory.xml
+C:\Users\Nildgar\Documents\My Projects\Satisfactory_Calculator\bin\Debug\System.Numerics.Vectors.xml
+C:\Users\Nildgar\Documents\My Projects\Satisfactory_Calculator\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
+C:\Users\Nildgar\Documents\My Projects\Satisfactory_Calculator\bin\Debug\System.Text.Encodings.Web.xml
+C:\Users\Nildgar\Documents\My Projects\Satisfactory_Calculator\bin\Debug\System.Text.Json.xml
+C:\Users\Nildgar\Documents\My Projects\Satisfactory_Calculator\bin\Debug\System.Threading.Tasks.Extensions.xml
+C:\Users\Nildgar\Documents\My Projects\Satisfactory_Calculator\bin\Debug\System.ValueTuple.xml
+C:\Users\Nildgar\Documents\My Projects\Satisfactory_Calculator\obj\Debug\Satisfactory Calculator.csproj.AssemblyReference.cache
+C:\Users\Nildgar\Documents\My Projects\Satisfactory_Calculator\obj\Debug\Satisfactory Calculator.csproj.SuggestedBindingRedirects.cache
+C:\Users\Nildgar\Documents\My Projects\Satisfactory_Calculator\obj\Debug\Frames\Extraction_Buildings.g.cs
+C:\Users\Nildgar\Documents\My Projects\Satisfactory_Calculator\obj\Debug\Frames\Generators.g.cs
+C:\Users\Nildgar\Documents\My Projects\Satisfactory_Calculator\obj\Debug\MainWindow.g.cs
+C:\Users\Nildgar\Documents\My Projects\Satisfactory_Calculator\obj\Debug\Frames\Vehicles.g.cs
+C:\Users\Nildgar\Documents\My Projects\Satisfactory_Calculator\obj\Debug\Frames\Other_Buildings.g.cs
+C:\Users\Nildgar\Documents\My Projects\Satisfactory_Calculator\obj\Debug\Frames\Production_Buildings.g.cs
+C:\Users\Nildgar\Documents\My Projects\Satisfactory_Calculator\obj\Debug\App.g.cs
+C:\Users\Nildgar\Documents\My Projects\Satisfactory_Calculator\obj\Debug\Satisfactory Calculator_MarkupCompile.cache
+C:\Users\Nildgar\Documents\My Projects\Satisfactory_Calculator\obj\Debug\Satisfactory Calculator_MarkupCompile.lref
+C:\Users\Nildgar\Documents\My Projects\Satisfactory_Calculator\obj\Debug\Frames\Extraction_Buildings.baml
+C:\Users\Nildgar\Documents\My Projects\Satisfactory_Calculator\obj\Debug\Frames\Generators.baml
+C:\Users\Nildgar\Documents\My Projects\Satisfactory_Calculator\obj\Debug\MainWindow.baml
+C:\Users\Nildgar\Documents\My Projects\Satisfactory_Calculator\obj\Debug\Frames\Vehicles.baml
+C:\Users\Nildgar\Documents\My Projects\Satisfactory_Calculator\obj\Debug\Frames\Other_Buildings.baml
+C:\Users\Nildgar\Documents\My Projects\Satisfactory_Calculator\obj\Debug\Frames\Production_Buildings.baml
+C:\Users\Nildgar\Documents\My Projects\Satisfactory_Calculator\obj\Debug\Satisfactory Calculator.g.resources
+C:\Users\Nildgar\Documents\My Projects\Satisfactory_Calculator\obj\Debug\Satisfactory_Calculator.Properties.Resources.resources
+C:\Users\Nildgar\Documents\My Projects\Satisfactory_Calculator\obj\Debug\Satisfactory Calculator.csproj.GenerateResource.cache
+C:\Users\Nildgar\Documents\My Projects\Satisfactory_Calculator\obj\Debug\Satisfactory Calculator.csproj.CoreCompileInputs.cache
+C:\Users\Nildgar\Documents\My Projects\Satisfactory_Calculator\obj\Debug\Satisfactory Calculator.csproj.CopyComplete
+C:\Users\Nildgar\Documents\My Projects\Satisfactory_Calculator\obj\Debug\Satisfactory Calculator.exe
+C:\Users\Nildgar\Documents\My Projects\Satisfactory_Calculator\obj\Debug\Satisfactory Calculator.pdb
